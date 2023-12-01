@@ -41,7 +41,7 @@ kotlin {
 
 android {
     namespace = "com.devjeong.myfirstkmmapp"
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         minSdk = 24
     }

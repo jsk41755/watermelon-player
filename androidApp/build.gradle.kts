@@ -17,7 +17,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = "1.4.7"
     }
     packaging {
         resources {
@@ -46,4 +46,5 @@ dependencies {
     implementation(Deps.composeFoundation)
     implementation(Deps.composeMaterial)
     implementation(Deps.composeNavigation)
+    implementation("androidx.compose.material3:material3:1.0.1")
 }
