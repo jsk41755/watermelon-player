@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
+    id("com.android.application")
+    kotlin("android")
 }
 
 android {
@@ -39,10 +39,11 @@ android {
 }
 
 dependencies {
-    implementation(projects.shared)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.material3)
-    implementation(libs.androidx.activity.compose)
-    debugImplementation(libs.compose.ui.tooling)
+    implementation(project(":shared"))
+    implementation(Deps.composeUi)
+    implementation(Deps.composeUiTooling)
+    implementation(Deps.composeUiToolingPreview)
+    implementation(Deps.composeFoundation)
+    implementation(Deps.composeMaterial)
+    implementation(Deps.composeNavigation)
 }

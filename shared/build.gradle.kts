@@ -1,52 +1,47 @@
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.kotlinCocoapods)
-    alias(libs.plugins.androidLibrary)
+    kotlin("multiplatform")
+    id("com.android.library")
 }
 
+@OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    androidTarget {
+    targetHierarchy.default()
+
+    android {
         compilations.all {
             kotlinOptions {
                 jvmTarget = "1.8"
             }
         }
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
 
-    cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
-        version = "1.0"
-        ios.deploymentTarget = "16.0"
-        podfile = project.file("../iosApp/Podfile")
-        framework {
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
             baseName = "shared"
-            isStatic = true
         }
     }
-    
+
     sourceSets {
-        commonMain.dependencies {
-            implementation(Deps.ktorCore)
-            implementation(Deps.ktorSerialization)
-            implementation(Deps.ktorSerializationJson)
-            implementation(Deps.sqlDelightRuntime)
-            implementation(Deps.sqlDelightCoroutinesExtensions)
-            implementation(Deps.kotlinDateTime)
-            implementation(Deps.media3)
+        val commonMain by getting {
+            dependencies {
+                //put your multiplatform dependencies here
+            }
         }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
         }
     }
 }
 
 android {
-    namespace = "com.devjeong.watermelon_player"
-    compileSdk = 34
+    namespace = "com.devjeong.myfirstkmmapp"
+    compileSdk = 33
     defaultConfig {
         minSdk = 24
     }
