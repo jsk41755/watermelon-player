@@ -4,7 +4,7 @@ object Deps {
     private const val activityComposeVersion = "1.6.1"
     const val activityCompose = "androidx.activity:activity-compose:$activityComposeVersion"
 
-    const val composeVersion = "1.4.3"
+    const val composeVersion = "1.4.0-alpha02"
     const val composeUi = "androidx.compose.ui:ui:$composeVersion"
     const val composeUiTooling = "androidx.compose.ui:ui-tooling:$composeVersion"
     const val composeUiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$composeVersion"
@@ -39,7 +39,7 @@ object Deps {
     const val ktorIOS = "io.ktor:ktor-client-ios:$ktorVersion"
 
     // GRADLE PLUGINS
-    const val kotlinVersion = "1.9.0"
+    const val kotlinVersion = "1.7.21"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
     private const val gradleVersion = "7.2.2"
@@ -75,7 +75,6 @@ object Deps {
 
     const val hiltTesting = "com.google.dagger:hilt-android-testing:$hiltVersion"
 
-    // For media playback using ExoPlayer
-    private const val media3_version = "1.0.0-rc01"
-    const val media3 = "androidx.media3:media3-exoplayer:$media3_version"
+    private const val rulesVersion = "1.4.0"
+    const val rules = "androidx.test:rules:$rulesVersion"
 }
