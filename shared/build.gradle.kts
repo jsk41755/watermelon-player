@@ -12,9 +12,11 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
-    android {
+    androidTarget {
         compilations.all {
-            kotlinOptions.jvmTarget = "17"
+            kotlinOptions {
+                jvmTarget = "17"
+            }
         }
     }
 
@@ -82,9 +84,14 @@ kotlin {
 }
 
 android {
-    namespace = "com.devjeong.myfirstkmmapp"
+    namespace = "com.devjeong.watermelon_player"
     compileSdk = 34
     defaultConfig {
         minSdk = 24
     }
+    compileOptions {
+        sourceCompatibility(JavaVersion.VERSION_17)
+        targetCompatibility(JavaVersion.VERSION_17)
+    }
+
 }
