@@ -12,6 +12,12 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    android {
+        compilations.all {
+            kotlinOptions.jvmTarget = "17"
+        }
+    }
+
     cocoapods {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
@@ -48,7 +54,7 @@ kotlin {
                 implementation(Deps.sqlDelightAndroidDriver)
             }
         }
-        val androidTest by getting
+        //val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting

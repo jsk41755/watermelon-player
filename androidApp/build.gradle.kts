@@ -1,10 +1,8 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
+    id("com.google.devtools.ksp")
+    //id("dagger.hilt.android.plugin")
     kotlin("plugin.serialization") version Deps.kotlinVersion
 }
 
@@ -21,6 +19,10 @@ android {
     buildFeatures {
         compose = true
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
     composeOptions {
         kotlinCompilerExtensionVersion = Deps.composeVersion
     }
@@ -33,6 +35,9 @@ android {
         getByName("release") {
             isMinifyEnabled = false
         }
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 
@@ -48,10 +53,10 @@ dependencies {
     implementation(Deps.composeNavigation)
     implementation(Deps.coilCompose)
 
-    implementation(Deps.hiltAndroid)
-    kapt(Deps.hiltAndroidCompiler)
-    kapt(Deps.hiltCompiler)
-    implementation(Deps.hiltNavigationCompose)
+    //implementation(Deps.hiltAndroid)
+    //ksp(Deps.hiltAndroidCompiler)
+    //ksp(Deps.hiltCompiler)
+    //implementation(Deps.hiltNavigationCompose)
 
     implementation(Deps.ktorAndroid)
 
@@ -61,7 +66,7 @@ dependencies {
     androidTestImplementation(Deps.rules)
     debugImplementation(Deps.composeTestManifest)
 
-    kaptAndroidTest(Deps.hiltAndroidCompiler)
-    androidTestImplementation(Deps.hiltTesting)
+    //kaptAndroidTest(Deps.hiltAndroidCompiler)
+    //androidTestImplementation(Deps.hiltTesting)
     implementation("androidx.compose.material3:material3:1.0.1")
 }
