@@ -1,6 +1,9 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
+    id("com.android.application")
+    kotlin("android")
+    id("com.google.devtools.ksp")
+    //id("dagger.hilt.android.plugin")
+    kotlin("plugin.serialization") version Deps.kotlinVersion
 }
 
 android {
@@ -16,8 +19,12 @@ android {
     buildFeatures {
         compose = true
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = Deps.composeVersion
     }
     packaging {
         resources {
@@ -29,20 +36,37 @@ android {
             isMinifyEnabled = false
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
 dependencies {
-    implementation(projects.shared)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.material3)
-    implementation(libs.androidx.activity.compose)
-    debugImplementation(libs.compose.ui.tooling)
+    implementation(project(":shared"))
+    implementation(Deps.composeUi)
+    implementation(Deps.composeUiTooling)
+    implementation(Deps.composeUiToolingPreview)
+    implementation(Deps.composeFoundation)
+    implementation(Deps.composeMaterial)
+    implementation(Deps.activityCompose)
+    implementation(Deps.composeIconsExtended)
+    implementation(Deps.composeNavigation)
+    implementation(Deps.coilCompose)
+
+    //implementation(Deps.hiltAndroid)
+    //ksp(Deps.hiltAndroidCompiler)
+    //ksp(Deps.hiltCompiler)
+    //implementation(Deps.hiltNavigationCompose)
+
+    implementation(Deps.ktorAndroid)
+
+    androidTestImplementation(Deps.testRunner)
+    androidTestImplementation(Deps.jUnit)
+    androidTestImplementation(Deps.composeTesting)
+    androidTestImplementation(Deps.rules)
+    debugImplementation(Deps.composeTestManifest)
+
+    //kaptAndroidTest(Deps.hiltAndroidCompiler)
+    //androidTestImplementation(Deps.hiltTesting)
+    implementation("androidx.compose.material3:material3:1.0.1")
 }
