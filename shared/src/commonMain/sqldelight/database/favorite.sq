@@ -4,12 +4,12 @@ CREATE TABLE historyEntity(
     timestamp INTEGER NOT NULL
 );
 
-getHistory:
+getHistoryList:
 SELECT *
 FROM historyEntity
 ORDER BY timestamp ASC;
 
-insertHistoryEntity:
+insertHistoryInstance:
 INSERT OR REPLACE
 INTO historyEntity(
     id,
@@ -18,6 +18,6 @@ INTO historyEntity(
 )
 VALUES(?, ?,?);
 
-deleteHistoryEntity:
+deleteHistoryInstance:
 DELETE FROM historyEntity
 WHERE musicName = ?;
