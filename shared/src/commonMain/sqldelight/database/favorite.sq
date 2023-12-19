@@ -1,0 +1,19 @@
+CREATE TABLE historyEntity(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    musicName TEXT NOT NULL,
+    timestamp INTEGER NOT NULL
+);
+
+getHistory:
+SELECT *
+FROM historyEntity
+ORDER BY timestamp ASC;
+
+insertHistoryEntity:
+INSERT OR REPLACE
+INTO historyEntity(
+    id,
+    musicName,
+    timestamp
+)
+VALUES(?, ?,?);
