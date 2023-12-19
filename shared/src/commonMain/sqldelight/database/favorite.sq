@@ -17,3 +17,7 @@ INTO historyEntity(
     timestamp
 )
 VALUES(?, ?,?);
+
+deleteHistoryEntity:
+DELETE FROM historyEntity
+WHERE musicName = ?;
