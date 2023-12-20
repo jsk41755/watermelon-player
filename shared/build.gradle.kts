@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.androidLibrary)
+    kotlin("plugin.serialization") version Deps.kotlinVersion
 }
 
 kotlin {
@@ -29,17 +30,23 @@ kotlin {
     }
     
     sourceSets {
+        androidMain.dependencies {
+            implementation(Deps.ktorAndroid)
+        }
         commonMain.dependencies {
             implementation(Deps.ktorCore)
             implementation(Deps.ktorSerialization)
             implementation(Deps.ktorSerializationJson)
-            implementation(Deps.sqlDelightRuntime)
-            implementation(Deps.sqlDelightCoroutinesExtensions)
             implementation(Deps.kotlinDateTime)
             implementation(Deps.media3)
+            implementation(platform(Deps.supabase))
+            implementation(Deps.supabasePostgrest)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+        iosMain.dependencies {
+            implementation(Deps.ktorIOS)
         }
     }
 }

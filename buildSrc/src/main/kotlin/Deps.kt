@@ -50,13 +50,6 @@ object Deps {
 
     const val hiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
 
-    // SQLDELIGHT
-    private const val sqlDelightVersion = "1.5.4"
-    const val sqlDelightRuntime = "com.squareup.sqldelight:runtime:$sqlDelightVersion"
-    const val sqlDelightAndroidDriver = "com.squareup.sqldelight:android-driver:$sqlDelightVersion"
-    const val sqlDelightNativeDriver = "com.squareup.sqldelight:native-driver:$sqlDelightVersion"
-    const val sqlDelightCoroutinesExtensions = "com.squareup.sqldelight:coroutines-extensions:$sqlDelightVersion"
-
     // TESTING
     private const val assertKVersion = "0.25"
     const val assertK = "com.willowtreeapps.assertk:assertk:$assertKVersion"
@@ -78,4 +71,10 @@ object Deps {
     // For media playback using ExoPlayer
     private const val media3_version = "1.0.0-rc01"
     const val media3 = "androidx.media3:media3-exoplayer:$media3_version"
+
+    //SupaBase
+    private const val supabase_version = "2.0.1"
+    const val supabase = "io.github.jan-tennert.supabase:bom:$supabase_version"
+    const val supabasePostgrest = "io.github.jan-tennert.supabase:postgrest-kt"
+
 }
