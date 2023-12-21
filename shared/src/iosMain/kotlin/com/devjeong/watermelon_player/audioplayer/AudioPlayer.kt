@@ -22,15 +22,16 @@ actual class AudioPlayer actual constructor(private val playerState: PlayerState
     private var currentItemIndex = -1
     private lateinit var timeObserver: Any
 
-    private val observer: (CValue<CMTime>) -> Unit =  { time: CValue<CMTime> ->
+    private val observer: (CValue<CMTime>) -> Unit = { time: CValue<CMTime> ->
         playerState.isBuffering = avAudioPlayer.currentItem?.isPlaybackLikelyToKeepUp() != true
         playerState.isPlaying = avAudioPlayer.timeControlStatus == AVPlayerTimeControlStatusPlaying
         val rawTime: Float64 = CMTimeGetSeconds(time)
         val parsedTime = rawTime.toDuration(DurationUnit.SECONDS).inWholeSeconds
         playerState.currentTime = parsedTime
-        if (avAudioPlayer.currentItem != null){
+        if (avAudioPlayer.currentItem != null) {
             val cmTime = CMTimeGetSeconds(avAudioPlayer.currentItem!!.duration)
-            playerState.duration = if (cmTime.isNaN()) 0 else cmTime.toDuration(DurationUnit.SECONDS).inWholeSeconds
+            playerState.duration =
+                if (cmTime.isNaN()) 0 else cmTime.toDuration(DurationUnit.SECONDS).inWholeSeconds
         }
     }
 
@@ -40,9 +41,9 @@ actual class AudioPlayer actual constructor(private val playerState: PlayerState
     }
 
     actual fun play() {
-        if (currentItemIndex == -1){
+        if (currentItemIndex == -1) {
             play(0)
-        }else{
+        } else {
             avAudioPlayer.play()
             playerState.isPlaying = true
         }
@@ -52,9 +53,10 @@ actual class AudioPlayer actual constructor(private val playerState: PlayerState
         avAudioPlayer.pause()
         playerState.isPlaying = false
     }
+
     actual fun play(songIndex: Int) {
         playerState.isBuffering = true
-        if (songIndex < playerItems.size){
+        if (songIndex < playerItems.size) {
             currentItemIndex = songIndex
             playWithIndex(currentItemIndex)
         }
@@ -70,18 +72,19 @@ actual class AudioPlayer actual constructor(private val playerState: PlayerState
 
     actual fun next() {
         playerState.canNext = (currentItemIndex + 1) < playerItems.size
-        if (playerState.canNext){
+        if (playerState.canNext) {
             currentItemIndex += 1
             playWithIndex(currentItemIndex)
         }
     }
 
     actual fun prev() {
-        when{
-            playerState.currentTime > 3 ->{
+        when {
+            playerState.currentTime > 3 -> {
                 seekTo(0.0)
             }
-            else ->{
+
+            else -> {
                 playerState.canPrev = (currentItemIndex - 1) >= 0
                 if (playerState.canPrev) {
                     currentItemIndex -= 1
@@ -99,6 +102,7 @@ actual class AudioPlayer actual constructor(private val playerState: PlayerState
         }
         playerItems.addAll(converted.map { AVPlayerItem(uRL = it) })
     }
+
     private fun setUpAudioSession() {
         try {
             val audioSession = AVAudioSession.sharedInstance()
@@ -109,7 +113,7 @@ actual class AudioPlayer actual constructor(private val playerState: PlayerState
         }
     }
 
-    private fun startTimeObserver(){
+    private fun startTimeObserver() {
         val interval = CMTimeMakeWithSeconds(1.0, NSEC_PER_SEC.toInt())
         timeObserver = avAudioPlayer.addPeriodicTimeObserverForInterval(interval, null, observer)
         NSNotificationCenter.defaultCenter.addObserverForName(
@@ -122,13 +126,13 @@ actual class AudioPlayer actual constructor(private val playerState: PlayerState
         )
     }
 
-    private fun stop(){
+    private fun stop() {
         if (::timeObserver.isInitialized) avAudioPlayer.removeTimeObserver(timeObserver)
         avAudioPlayer.pause()
         avAudioPlayer.currentItem?.seekToTime(CMTimeMakeWithSeconds(0.0, NSEC_PER_SEC.toInt()))
     }
 
-    private fun playWithIndex(currentItemIndex: Int){
+    private fun playWithIndex(currentItemIndex: Int) {
         stop()
         startTimeObserver()
         playerState.isBuffering = true
@@ -138,13 +142,14 @@ actual class AudioPlayer actual constructor(private val playerState: PlayerState
         avAudioPlayer.play()
     }
 
-    actual fun cleanUp(){
+    actual fun cleanUp() {
         stop()
     }
 
 
 }
-class AudioObserver: ObserverProtocol, NSObject() {
+
+class AudioObserver : ObserverProtocol, NSObject() {
     override fun observeValueForKeyPath(
         keyPath: String?,
         ofObject: Any?,

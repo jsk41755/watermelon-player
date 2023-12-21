@@ -1,4 +1,4 @@
-package com.devjeong.watermelon_player.domain
+package com.devjeong.watermelon_player.audioplayer.domain
 
 import kotlinx.serialization.Serializable
 
