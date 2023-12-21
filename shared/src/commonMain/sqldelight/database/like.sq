@@ -1,0 +1,23 @@
+CREATE TABLE likeEntity(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    timestamp INTEGER NOT NULL
+);
+
+getLikeList:
+SELECT *
+FROM likeEntity
+ORDER BY timestamp ASC;
+
+insertLikeInstance:
+INSERT OR REPLACE
+INTO likeEntity(
+    id,
+    title,
+    timestamp
+)
+VALUES(?, ?,?);
+
+deletelikeInstance:
+DELETE FROM likeEntity
+WHERE title = ?;
