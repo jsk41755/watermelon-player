@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.androidLibrary)
     kotlin("plugin.serialization") version Deps.kotlinVersion
+    id("com.squareup.sqldelight")
 }
 
 kotlin {
@@ -32,11 +33,14 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             implementation(Deps.ktorAndroid)
+            implementation(Deps.sqlDelightAndroidDriver)
         }
         commonMain.dependencies {
             implementation(Deps.ktorCore)
             implementation(Deps.ktorSerialization)
             implementation(Deps.ktorSerializationJson)
+            implementation(Deps.sqlDelightRuntime)
+            implementation(Deps.sqlDelightCoroutinesExtensions)
             implementation(Deps.kotlinDateTime)
             implementation(Deps.media3)
             implementation(platform(Deps.supabase))
@@ -47,6 +51,7 @@ kotlin {
         }
         iosMain.dependencies {
             implementation(Deps.ktorIOS)
+            implementation(Deps.sqlDelightNativeDriver)
         }
     }
 }
@@ -56,5 +61,12 @@ android {
     compileSdk = 34
     defaultConfig {
         minSdk = 24
+    }
+}
+
+sqldelight{
+    database("LikeDatabase"){
+        packageName = "com.devjeong.watermelon_player.database"
+        sourceFolders = listOf("sqldelight")
     }
 }
