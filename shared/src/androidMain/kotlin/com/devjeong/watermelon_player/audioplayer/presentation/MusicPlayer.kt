@@ -1,4 +1,4 @@
-package com.devjeong.watermelon_player.audioplayer
+package com.devjeong.watermelon_player.audioplayer.presentation
 
 import android.os.Handler
 import android.os.Looper
@@ -7,14 +7,14 @@ import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.devjeong.watermelon_player.WaterMelonApp
 
-actual class AudioPlayer actual constructor(private val playerState: PlayerState): Runnable  {
+actual class MusicPlayer actual constructor(private val playerState: PlayerState): Runnable  {
 
     private val handler = Handler(Looper.getMainLooper())
 
     private val mediaPlayer = ExoPlayer.Builder(WaterMelonApp.appContext).build()
     private val mediaItems = mutableListOf<MediaItem>()
     private var currentItemIndex = -1
-    private val listener = object: Player.Listener{
+    private val listener = object: Player.Listener {
 
         override fun onPlaybackStateChanged(playbackState: Int) {
             when(playbackState){

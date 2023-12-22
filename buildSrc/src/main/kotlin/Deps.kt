@@ -37,6 +37,7 @@ object Deps {
     const val ktorSerializationJson = "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
     const val ktorAndroid = "io.ktor:ktor-client-android:$ktorVersion"
     const val ktorIOS = "io.ktor:ktor-client-ios:$ktorVersion"
+    const val ktorCio = "io.ktor:ktor-client-cio:$ktorVersion"
 
     // GRADLE PLUGINS
     const val kotlinVersion = "1.9.0"

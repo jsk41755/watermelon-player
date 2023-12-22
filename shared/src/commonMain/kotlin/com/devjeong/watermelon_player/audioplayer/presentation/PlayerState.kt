@@ -1,4 +1,4 @@
-package com.devjeong.watermelon_player.audioplayer
+package com.devjeong.watermelon_player.audioplayer.presentation
 
 import kotlin.properties.Delegates
 

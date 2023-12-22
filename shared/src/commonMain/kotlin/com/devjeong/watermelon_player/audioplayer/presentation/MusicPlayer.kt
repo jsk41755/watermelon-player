@@ -1,6 +1,6 @@
-package com.devjeong.watermelon_player.audioplayer
+package com.devjeong.watermelon_player.audioplayer.presentation
 
-expect class AudioPlayer(playerState: PlayerState){
+expect class MusicPlayer(playerState: PlayerState){
     fun play()
     fun pause()
     fun next()
