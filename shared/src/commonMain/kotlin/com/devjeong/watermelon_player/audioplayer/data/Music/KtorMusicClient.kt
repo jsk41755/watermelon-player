@@ -1,12 +1,11 @@
 package com.devjeong.watermelon_player.audioplayer.data.Music
 
-import NetworkConstants
+import com.devjeong.watermelon_player.NetworkConstants
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
-import io.ktor.util.logging.Logger
 import kotlinx.serialization.json.Json
 
 object KtorMusicClient {

@@ -1,3 +1,5 @@
+package com.devjeong.watermelon_player
+
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 

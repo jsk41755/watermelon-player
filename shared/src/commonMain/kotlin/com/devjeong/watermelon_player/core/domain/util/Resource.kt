@@ -1,7 +1,7 @@
 package com.devjeong.watermelon_player.core.domain.util
 
-sealed class Resource<T>(val data: T?, val throwable: Throwable? = null) {
-    class Success<T>(data: T): Resource<T>(data)
-    class Error<T>(throwable: Throwable): Resource<T>(null, throwable)
-
+sealed class Resource<out T> {
+    object Loading : Resource<Nothing>()
+    data class Success<out T>(val data: T) : Resource<T>()
+    data class Error(val throwable: Throwable) : Resource<Nothing>()
 }
