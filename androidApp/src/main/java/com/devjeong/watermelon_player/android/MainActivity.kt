@@ -38,6 +38,8 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -73,6 +75,8 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(navController: NavController) {
+    val isLike = remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -80,10 +84,23 @@ fun DetailScreen(navController: NavController) {
     ) {
         // Top App Bar
         TopAppBar(
-            title = { Text("재생중인 곡") },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = Color.Black,
+                titleContentColor = Color.White,
+                actionIconContentColor = Color.White,
+                navigationIconContentColor = Color.White
+            ),
+            title = {
+                Text(
+                    "재생중인 곡"
+                )
+            },
             navigationIcon = {
                 IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
+                    Icon(
+                        Icons.Filled.ArrowBack,
+                        contentDescription = "Back"
+                    )
                 }
             }
         )
@@ -111,15 +128,42 @@ fun DetailScreen(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
-                Text(text = "dsagdsagads")
-                Text(text = "gsgggggg")
-            }
+                Text(
+                    text = "dsagdsagads",
+                    style = TextStyle(
+                        fontSize = 20.sp,
+                        lineHeight = 28.sp,
+                        fontFamily = FontFamily(Font(R.font.pretendard)),
+                        fontWeight = FontWeight(700),
+                        color = Color(0xFFFFFFFF)
+                    )
+                )
 
-            Image(
-                painter = painterResource(id = R.drawable.like),
-                contentDescription = "like",
-                modifier = Modifier.size(24.dp) // 이미지 크기 조정
-            )
+                Text(
+                    text = "gsgggggg",
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        lineHeight = 24.sp,
+                        fontFamily = FontFamily(Font(R.font.pretendard)),
+                        fontWeight = FontWeight(400),
+                        color = Color(0xFF999999),
+                    )
+                )
+            }
+            IconButton(onClick = { isLike.value = !isLike.value }) {
+                Image(
+                    painter =
+                    if (!isLike.value)
+                        painterResource(id = R.drawable.un_activate_like)
+                    else
+                        painterResource(id = R.drawable.activate_like),
+                    contentDescription = if (isLike.value) "일시정지" else "재생",
+                    modifier = Modifier
+                        .padding(0.dp)
+                        .width(28.dp)
+                        .height(28.dp)
+                )
+            }
         }
 
         Box(
@@ -138,8 +182,28 @@ fun DetailScreen(navController: NavController) {
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "00:32") // 현재 재생 시간
-            Text(text = "03:21") // 총 재생 시간
+            Text(
+                text = "00:32",
+                style = TextStyle(
+                    fontSize = 14.sp,
+                    lineHeight = 22.sp,
+                    fontFamily = FontFamily(Font(R.font.pretendard)),
+                    fontWeight = FontWeight(400),
+                    color = Color(0xFFFFFFFF),
+                )
+            )
+            Text(
+                text = "03:21",
+                style = TextStyle(
+                    fontSize = 14.sp,
+                    lineHeight = 22.sp,
+                    fontFamily = FontFamily(Font(R.font.pretendard)),
+                    fontWeight = FontWeight(400),
+                    color = Color(0xFFFFFFFF),
+
+                    textAlign = TextAlign.Right,
+                )
+            )
         }
 
         MusicControlButtons()
@@ -155,7 +219,7 @@ fun CustomProgressBar(progress: Float) {
         modifier = Modifier
             .fillMaxWidth()
             .height(circleRadius * 2)
-            .background(Color.LightGray)
+            .background(Color(0xFF252932))
     ) {
         Canvas(modifier = Modifier.fillMaxSize()) {
             val barWidth = size.width
@@ -164,14 +228,14 @@ fun CustomProgressBar(progress: Float) {
 
             // 진행 표시줄 그리기
             drawRect(
-                color = Color.Red,
+                color = Color(0xFFCAFB5C),
                 size = Size(barWidth * progress, barHeight)
             )
 
             // 진행 표시줄 끝에 원 그리기
             if (progress > 0) {
                 drawCircle(
-                    color = Color.Red,
+                    color = Color(0xFFCAFB5C),
                     radius = radius,
                     center = Offset(barWidth * progress, size.height / 2)
                 )
@@ -195,7 +259,8 @@ fun MusicControlButtons() {
         IconButton(onClick = { /* 반복 재생 동작 */ }) {
             Icon(
                 painter = painterResource(id = R.drawable.repeat),
-                contentDescription = "반복 재생"
+                contentDescription = "반복 재생",
+                tint = Color.White
             )
         }
 
@@ -203,7 +268,8 @@ fun MusicControlButtons() {
         IconButton(onClick = { /* 이전 노래 동작 */ }) {
             Icon(
                 painter = painterResource(id = R.drawable.skip_previous),
-                contentDescription = "이전 노래"
+                contentDescription = "이전 노래",
+                tint = Color.White
             )
         }
 
@@ -238,7 +304,8 @@ fun MusicControlButtons() {
         IconButton(onClick = { /* 다음 노래 동작 */ }) {
             Icon(
                 painter = painterResource(id = R.drawable.skip_next),
-                contentDescription = "다음 노래"
+                contentDescription = "다음 노래",
+                tint = Color.White
             )
         }
 
@@ -246,7 +313,8 @@ fun MusicControlButtons() {
         IconButton(onClick = { /* 셔플 동작 */ }) {
             Icon(
                 painter = painterResource(id = R.drawable.shuffle),
-                contentDescription = "셔플"
+                contentDescription = "셔플",
+                tint = Color.White
             )
         }
     }
@@ -304,22 +372,6 @@ fun ItemView(navController: NavController, item: String) {
         ) {
             // 이미지 박스와 텍스트 컬럼
             ImageAndTextColumn(item)
-
-            Spacer(Modifier.weight(1f))
-
-            Text(
-                text = "3:02",
-                modifier = Modifier
-                    .padding(top = 22.dp, bottom = 22.dp)
-                    .align(Alignment.CenterVertically),
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    lineHeight = 16.sp,
-                    fontWeight = FontWeight(400),
-                    color = Color(0xFF999999),
-                    textAlign = TextAlign.Right,
-                )
-            )
         }
     }
 }
