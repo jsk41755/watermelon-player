@@ -3,6 +3,7 @@ package com.devjeong.watermelon_player.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,9 +28,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -68,7 +73,11 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(navController: NavController) {
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
         // Top App Bar
         TopAppBar(
             title = { Text("재생중인 곡") },
@@ -112,7 +121,141 @@ fun DetailScreen(navController: NavController) {
                 modifier = Modifier.size(24.dp) // 이미지 크기 조정
             )
         }
+
+        Box(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth()
+                .background(Color.LightGray) // 배경 색상 설정
+                .height(4.dp) // 높이 조절
+        ) {
+            MediaPlayerUI(0.5f, "0:33", "03:21")
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "00:32") // 현재 재생 시간
+            Text(text = "03:21") // 총 재생 시간
+        }
+
+        MusicControlButtons()
     }
+}
+
+@Composable
+fun CustomProgressBar(progress: Float) {
+    val progressBarHeight = 4.dp
+    val circleRadius = 8.dp
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(circleRadius * 2)
+            .background(Color.LightGray)
+    ) {
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val barWidth = size.width
+            val barHeight = progressBarHeight.toPx()
+            val radius = circleRadius.toPx()
+
+            // 진행 표시줄 그리기
+            drawRect(
+                color = Color.Red,
+                size = Size(barWidth * progress, barHeight)
+            )
+
+            // 진행 표시줄 끝에 원 그리기
+            if (progress > 0) {
+                drawCircle(
+                    color = Color.Red,
+                    radius = radius,
+                    center = Offset(barWidth * progress, size.height / 2)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun MusicControlButtons() {
+    val isPlaying = remember { mutableStateOf(false) }
+
+    Row(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // 반복 재생 버튼
+        IconButton(onClick = { /* 반복 재생 동작 */ }) {
+            Icon(
+                painter = painterResource(id = R.drawable.repeat),
+                contentDescription = "반복 재생"
+            )
+        }
+
+        // 이전 노래 버튼
+        IconButton(onClick = { /* 이전 노래 동작 */ }) {
+            Icon(
+                painter = painterResource(id = R.drawable.skip_previous),
+                contentDescription = "이전 노래"
+            )
+        }
+
+        Box(
+            modifier = Modifier
+                .border(
+                    width = 1.dp, color = Color(0x33000000),
+                    shape = RoundedCornerShape(size = 26.dp)
+                )
+                .width(80.dp)
+                .height(80.dp)
+                .background(
+                    color = Color(0xFF222222),
+                    shape = RoundedCornerShape(size = 26.dp)
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            IconButton(onClick = { isPlaying.value = !isPlaying.value }) {
+                Icon(
+                    painter =
+                    if (isPlaying.value)
+                        painterResource(id = R.drawable.pause)
+                    else
+                        painterResource(id = R.drawable.play),
+                    contentDescription = if (isPlaying.value) "일시정지" else "재생",
+                    tint = Color.White
+                )
+            }
+        }
+
+        // 다음 노래 버튼
+        IconButton(onClick = { /* 다음 노래 동작 */ }) {
+            Icon(
+                painter = painterResource(id = R.drawable.skip_next),
+                contentDescription = "다음 노래"
+            )
+        }
+
+        // 셔플 버튼
+        IconButton(onClick = { /* 셔플 동작 */ }) {
+            Icon(
+                painter = painterResource(id = R.drawable.shuffle),
+                contentDescription = "셔플"
+            )
+        }
+    }
+}
+
+
+@Composable
+fun MediaPlayerUI(progress: Float, currentTime: String, totalTime: String) {
+    CustomProgressBar(progress = progress)
 }
 
 @Composable
@@ -232,6 +375,6 @@ fun ImageAndTextColumn(item: String) {
 @Composable
 fun DefaultPreview() {
     MyApplicationTheme {
-        //LazyColumnSample()
+        MediaPlayerUI(0.1f, "0:33", "03:21")
     }
 }
