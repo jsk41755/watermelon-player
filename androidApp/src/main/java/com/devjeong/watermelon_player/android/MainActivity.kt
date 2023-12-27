@@ -50,29 +50,44 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.devjeong.watermelon_player.android.player.presentation.components.CustomTopAppBar
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyApplicationTheme {
-                val navController = rememberNavController()
-
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavHost(navController = navController, startDestination = "lazyColumnSample") {
-                        composable("lazyColumnSample") { LazyColumnSample(navController) }
-                        composable("detailScreen") { DetailScreen(navController) }
-                    }
+                    MusicRoot()
                 }
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MusicRoot() {
+    val navController = rememberNavController()
+
+    NavHost(
+        navController = navController,
+        startDestination = "lazyColumnSample"
+    ) {
+        composable(
+            "lazyColumnSample"
+        ) {
+            LazyColumnSample(navController)
+        }
+        composable(
+            "detailScreen"
+        ) {
+            DetailScreen(navController)
+        }
+    }
+}
 @Composable
 fun DetailScreen(navController: NavController) {
     val isLike = remember { mutableStateOf(false) }
@@ -82,28 +97,7 @@ fun DetailScreen(navController: NavController) {
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        // Top App Bar
-        TopAppBar(
-            colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Color.Black,
-                titleContentColor = Color.White,
-                actionIconContentColor = Color.White,
-                navigationIconContentColor = Color.White
-            ),
-            title = {
-                Text(
-                    "재생중인 곡"
-                )
-            },
-            navigationIcon = {
-                IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(
-                        Icons.Filled.ArrowBack,
-                        contentDescription = "Back"
-                    )
-                }
-            }
-        )
+        CustomTopAppBar(navController)
 
         Image(
             painter = painterResource(
@@ -129,7 +123,7 @@ fun DetailScreen(navController: NavController) {
         ) {
             Column {
                 Text(
-                    text = "dsagdsagads",
+                    text = "Trap Future Bass",
                     style = TextStyle(
                         fontSize = 20.sp,
                         lineHeight = 28.sp,
@@ -140,7 +134,7 @@ fun DetailScreen(navController: NavController) {
                 )
 
                 Text(
-                    text = "gsgggggg",
+                    text = "RoyaltyFreeMusic",
                     style = TextStyle(
                         fontSize = 16.sp,
                         lineHeight = 24.sp,
@@ -170,8 +164,8 @@ fun DetailScreen(navController: NavController) {
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth()
-                .background(Color.LightGray) // 배경 색상 설정
-                .height(4.dp) // 높이 조절
+                .background(Color.LightGray)
+                .height(4.dp)
         ) {
             MediaPlayerUI(0.5f, "0:33", "03:21")
         }
@@ -209,218 +203,9 @@ fun DetailScreen(navController: NavController) {
         MusicControlButtons()
     }
 }
-
-@Composable
-fun CustomProgressBar(progress: Float) {
-    val progressBarHeight = 4.dp
-    val circleRadius = 8.dp
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(circleRadius * 2)
-            .background(Color(0xFF252932))
-    ) {
-        Canvas(modifier = Modifier.fillMaxSize()) {
-            val barWidth = size.width
-            val barHeight = progressBarHeight.toPx()
-            val radius = circleRadius.toPx()
-
-            // 진행 표시줄 그리기
-            drawRect(
-                color = Color(0xFFCAFB5C),
-                size = Size(barWidth * progress, barHeight)
-            )
-
-            // 진행 표시줄 끝에 원 그리기
-            if (progress > 0) {
-                drawCircle(
-                    color = Color(0xFFCAFB5C),
-                    radius = radius,
-                    center = Offset(barWidth * progress, size.height / 2)
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun MusicControlButtons() {
-    val isPlaying = remember { mutableStateOf(false) }
-
-    Row(
-        modifier = Modifier
-            .padding(16.dp)
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        // 반복 재생 버튼
-        IconButton(onClick = { /* 반복 재생 동작 */ }) {
-            Icon(
-                painter = painterResource(id = R.drawable.repeat),
-                contentDescription = "반복 재생",
-                tint = Color.White
-            )
-        }
-
-        // 이전 노래 버튼
-        IconButton(onClick = { /* 이전 노래 동작 */ }) {
-            Icon(
-                painter = painterResource(id = R.drawable.skip_previous),
-                contentDescription = "이전 노래",
-                tint = Color.White
-            )
-        }
-
-        Box(
-            modifier = Modifier
-                .border(
-                    width = 1.dp, color = Color(0x33000000),
-                    shape = RoundedCornerShape(size = 26.dp)
-                )
-                .width(80.dp)
-                .height(80.dp)
-                .background(
-                    color = Color(0xFF222222),
-                    shape = RoundedCornerShape(size = 26.dp)
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            IconButton(onClick = { isPlaying.value = !isPlaying.value }) {
-                Icon(
-                    painter =
-                    if (isPlaying.value)
-                        painterResource(id = R.drawable.pause)
-                    else
-                        painterResource(id = R.drawable.play),
-                    contentDescription = if (isPlaying.value) "일시정지" else "재생",
-                    tint = Color.White
-                )
-            }
-        }
-
-        // 다음 노래 버튼
-        IconButton(onClick = { /* 다음 노래 동작 */ }) {
-            Icon(
-                painter = painterResource(id = R.drawable.skip_next),
-                contentDescription = "다음 노래",
-                tint = Color.White
-            )
-        }
-
-        // 셔플 버튼
-        IconButton(onClick = { /* 셔플 동작 */ }) {
-            Icon(
-                painter = painterResource(id = R.drawable.shuffle),
-                contentDescription = "셔플",
-                tint = Color.White
-            )
-        }
-    }
-}
-
-
 @Composable
 fun MediaPlayerUI(progress: Float, currentTime: String, totalTime: String) {
     CustomProgressBar(progress = progress)
-}
-
-@Composable
-fun LazyColumnSample(navController: NavController) {
-    // 여기에 표시할 데이터 리스트를 정의합니다.
-    val dataList = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
-
-    LazyColumn {
-        items(items = dataList) { item ->
-            ItemView(navController = navController, item = item)
-        }
-    }
-}
-
-@Composable
-fun ItemView(navController: NavController, item: String) {
-    Box(
-        modifier = Modifier
-            .clickable {
-                navController.navigate("detailScreen")
-            }
-            .padding(horizontal = 23.dp)
-            .padding(vertical = 12.dp)
-            .shadow(
-                elevation = 10.dp,
-                spotColor = Color(0x26000000),
-                ambientColor = Color(0x26000000)
-            )
-            .border(
-                width = 1.dp,
-                color = Color(0x33000000),
-                shape = RoundedCornerShape(25.dp)
-            )
-            .width(344.dp)
-            .height(100.dp)
-            .background(
-                color = Color(0xFF222222),
-                shape = RoundedCornerShape(25.dp)
-            )
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(20.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // 이미지 박스와 텍스트 컬럼
-            ImageAndTextColumn(item)
-        }
-    }
-}
-
-@Composable
-fun ImageAndTextColumn(item: String) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        // 이미지 박스
-        Box(
-            modifier = Modifier
-                .width(60.dp)
-                .height(60.dp)
-                .background(
-                    color = Color(0xFFD9D9D9),
-                    shape = RoundedCornerShape(18.dp)
-                )
-        )
-
-        Spacer(Modifier.width(16.dp)) // 이미지 박스와 텍스트 사이의 간격
-
-        Column {
-            // 첫 번째 텍스트
-            Text(
-                text = item,
-                modifier = Modifier
-                    .widthIn(max = 180.dp)
-                    .heightIn(max = 24.dp),
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    lineHeight = 24.sp,
-                    fontWeight = FontWeight(500),
-                    color = Color(0xFFFFFFFF)
-                ),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-
-            // 두 번째 텍스트
-            Text(
-                text = "RoyaltyFreeMusic",
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    lineHeight = 16.sp,
-                    fontWeight = FontWeight(400),
-                    color = Color(0xFF999999)
-                )
-            )
-        }
-    }
 }
 
 @Preview
