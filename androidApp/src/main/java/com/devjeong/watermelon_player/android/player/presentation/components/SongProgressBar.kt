@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CustomProgressBar(progress: Float) {
+fun CustomProgressBar(progress: Float, currentTime: String, totalTime: String) {
     val progressBarHeight = 4.dp
     val circleRadius = 8.dp
 
