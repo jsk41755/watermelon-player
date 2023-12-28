@@ -18,17 +18,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
+import com.devjeong.watermelon_player.playlist.model.Music
 
 @Composable
-fun SongItem(navController: NavController, item: String) {
+fun SongItem(navController: NavController, music: Music) {
     Box(
         modifier = Modifier
             .clickable {
@@ -59,32 +64,34 @@ fun SongItem(navController: NavController, item: String) {
                 .padding(20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // 이미지 박스와 텍스트 컬럼
-            ImageAndTextColumn(item)
+            ImageAndTextColumn(music)
+
+            Spacer(Modifier.weight(1f))
+
+            DurationText(music)
         }
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ImageAndTextColumn(item: String) {
+fun ImageAndTextColumn(music: Music) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        // 이미지 박스
-        Box(
+
+        GlideImage(
+            model = music.img_url,
+            contentDescription = "Cover Screen",
             modifier = Modifier
                 .width(60.dp)
                 .height(60.dp)
-                .background(
-                    color = Color(0xFFD9D9D9),
-                    shape = RoundedCornerShape(18.dp)
-                )
+                .clip(shape = RoundedCornerShape(size = 18.dp))
         )
 
         Spacer(Modifier.width(16.dp)) // 이미지 박스와 텍스트 사이의 간격
 
         Column {
-            // 첫 번째 텍스트
             Text(
-                text = item,
+                text = music.title,
                 modifier = Modifier
                     .widthIn(max = 180.dp)
                     .heightIn(max = 24.dp),
@@ -98,9 +105,8 @@ fun ImageAndTextColumn(item: String) {
                 overflow = TextOverflow.Ellipsis
             )
 
-            // 두 번째 텍스트
             Text(
-                text = "RoyaltyFreeMusic",
+                text = music.artists,
                 style = TextStyle(
                     fontSize = 14.sp,
                     lineHeight = 16.sp,
@@ -110,4 +116,20 @@ fun ImageAndTextColumn(item: String) {
             )
         }
     }
+}
+
+@Composable
+fun DurationText(music: Music) {
+    Text(
+        text = music.duration,
+        modifier = Modifier
+            .padding(top = 22.dp, bottom = 22.dp, end = 20.dp),
+        style = TextStyle(
+            fontSize = 14.sp,
+            lineHeight = 16.sp,
+            fontWeight = FontWeight(400),
+            color = Color(0xFF999999),
+            textAlign = TextAlign.Right,
+        )
+    )
 }

@@ -41,6 +41,7 @@ kotlin {
                 implementation(Deps.ktorSerialization)
                 implementation(Deps.ktorSerializationJson)
                 implementation(Deps.ktorCio)
+                implementation(Deps.ktorLogging)
                 implementation(Deps.sqlDelightRuntime)
                 implementation(Deps.sqlDelightCoroutinesExtensions)
                 implementation(Deps.kotlinDateTime)
@@ -48,13 +49,6 @@ kotlin {
                 implementation(platform(Deps.supabase))
                 implementation(Deps.supabasePostgrest)
                 implementation(Deps.koinCore)
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(Deps.assertK)
-                implementation(Deps.turbine)
             }
         }
         val androidMain by getting {
@@ -76,8 +70,6 @@ kotlin {
         val iosX64Test by getting
         val iosArm64Test by getting
         val iosSimulatorArm64Test by getting
-        val iosTest by getting {
-        }
     }
 }
 
