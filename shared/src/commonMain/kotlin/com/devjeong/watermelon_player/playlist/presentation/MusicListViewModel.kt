@@ -31,8 +31,9 @@ class MusicListViewModel(
             try {
                 val fetchedMusic = musicRepository.fetchMusicList()
                 _musicList.value = fetchedMusic
+
             } catch (e: Exception) {
-                println("하이하이 $e")
+                e.printStackTrace()
             }
         }
     }

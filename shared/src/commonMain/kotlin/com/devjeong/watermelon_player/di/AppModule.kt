@@ -4,10 +4,8 @@ import com.devjeong.watermelon_player.playlist.KtorMusicClient
 import com.devjeong.watermelon_player.playlist.data.repository.MusicRepository
 import com.devjeong.watermelon_player.playlist.data.repository.MusicRepositoryImpl
 import com.devjeong.watermelon_player.playlist.presentation.MusicListViewModel
-import io.ktor.client.HttpClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import org.koin.core.module.Module
 import org.koin.dsl.module
 
 val appModule = module {
