@@ -8,7 +8,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.devjeong.watermelon_player.Greeting
+import com.devjeong.watermelon_player.android.player.presentation.DetailScreen
+import com.devjeong.watermelon_player.android.playlist.presentation.PlayListScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingView(Greeting().greet())
+                    MusicRoot()
                 }
             }
         }
@@ -27,14 +32,22 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun GreetingView(text: String) {
-    Text(text = text)
-}
+fun MusicRoot() {
+    val navController = rememberNavController()
 
-@Preview
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        GreetingView("Hello, Android!")
+    NavHost(
+        navController = navController,
+        startDestination = "lazyColumnSample"
+    ) {
+        composable(
+            "lazyColumnSample"
+        ) {
+            PlayListScreen(navController)
+        }
+        composable(
+            "detailScreen"
+        ) {
+            DetailScreen(navController)
+        }
     }
 }
