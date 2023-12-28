@@ -19,8 +19,6 @@ class MusicRepositoryImpl(private val httpClient: HttpClient) : MusicRepository 
                 }
             }
 
-
-
         if (response.status.isSuccess()) {
             val responseBody: String = response.body()
             println(response)
