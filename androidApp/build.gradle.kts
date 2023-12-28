@@ -52,4 +52,8 @@ dependencies {
     implementation(Deps.composeNavigation)
     implementation(Deps.coilCompose)
     implementation(Deps.composeMaterial3)
+
+    implementation(Deps.koinAndroid)
+    implementation(Deps.koinCore)
+    implementation(Deps.koin_compose)
 }

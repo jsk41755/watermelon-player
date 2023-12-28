@@ -26,9 +26,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.devjeong.watermelon_player.playlist.model.Music
 
 @Composable
-fun SongItem(navController: NavController, item: String) {
+fun SongItem(navController: NavController, music: Music) {
     Box(
         modifier = Modifier
             .clickable {
@@ -60,13 +61,13 @@ fun SongItem(navController: NavController, item: String) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             // 이미지 박스와 텍스트 컬럼
-            ImageAndTextColumn(item)
+            ImageAndTextColumn(music)
         }
     }
 }
 
 @Composable
-fun ImageAndTextColumn(item: String) {
+fun ImageAndTextColumn(music: Music) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         // 이미지 박스
         Box(
@@ -78,13 +79,12 @@ fun ImageAndTextColumn(item: String) {
                     shape = RoundedCornerShape(18.dp)
                 )
         )
-
         Spacer(Modifier.width(16.dp)) // 이미지 박스와 텍스트 사이의 간격
 
         Column {
             // 첫 번째 텍스트
             Text(
-                text = item,
+                text = music.title,
                 modifier = Modifier
                     .widthIn(max = 180.dp)
                     .heightIn(max = 24.dp),
@@ -100,7 +100,7 @@ fun ImageAndTextColumn(item: String) {
 
             // 두 번째 텍스트
             Text(
-                text = "RoyaltyFreeMusic",
+                text = music.artists,
                 style = TextStyle(
                     fontSize = 14.sp,
                     lineHeight = 16.sp,

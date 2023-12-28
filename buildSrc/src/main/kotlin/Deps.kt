@@ -40,6 +40,7 @@ object Deps {
     const val ktorAndroid = "io.ktor:ktor-client-android:$ktorVersion"
     const val ktorIOS = "io.ktor:ktor-client-ios:$ktorVersion"
     const val ktorCio = "io.ktor:ktor-client-cio:$ktorVersion"
+    const val ktorLogging = "io.ktor:ktor-client-logging:$ktorVersion"
 
     // GRADLE PLUGINS
     const val kotlinVersion = "1.9.20"
