@@ -56,5 +56,5 @@ dependencies {
     implementation(Deps.koinCore)
     implementation(Deps.koin_compose)
 
-    implementation(Deps.glide)
+    implementation(Deps.glideCompose)
 }

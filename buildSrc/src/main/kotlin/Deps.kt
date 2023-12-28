@@ -64,6 +64,6 @@ object Deps {
     const val koin_compose = "io.insert-koin:koin-androidx-compose:$koinVersion"
 
     //Gilde
-    private const val glideVersion = "5.0.0-rc01"
-    const val glide = "com.github.bumptech.glide:glide:$glideVersion"
+    private const val glideVersion = "1.0.0-beta01"
+    const val glideCompose = "com.github.bumptech.glide:compose:$glideVersion"
 }
