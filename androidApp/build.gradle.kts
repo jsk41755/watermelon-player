@@ -47,26 +47,9 @@ dependencies {
     implementation(Deps.composeUiTooling)
     implementation(Deps.composeUiToolingPreview)
     implementation(Deps.composeFoundation)
-    implementation(Deps.composeMaterial)
     implementation(Deps.activityCompose)
     implementation(Deps.composeIconsExtended)
     implementation(Deps.composeNavigation)
     implementation(Deps.coilCompose)
-
-    //implementation(Deps.hiltAndroid)
-    //ksp(Deps.hiltAndroidCompiler)
-    //ksp(Deps.hiltCompiler)
-    //implementation(Deps.hiltNavigationCompose)
-
-    implementation(Deps.ktorAndroid)
-
-    androidTestImplementation(Deps.testRunner)
-    androidTestImplementation(Deps.jUnit)
-    androidTestImplementation(Deps.composeTesting)
-    androidTestImplementation(Deps.rules)
-    debugImplementation(Deps.composeTestManifest)
-
-    //kaptAndroidTest(Deps.hiltAndroidCompiler)
-    //androidTestImplementation(Deps.hiltTesting)
-    implementation("androidx.compose.material3:material3:1.0.1")
+    implementation(Deps.composeMaterial3)
 }

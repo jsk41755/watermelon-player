@@ -9,7 +9,6 @@ object Deps {
     const val composeUiTooling = "androidx.compose.ui:ui-tooling:$composeVersion"
     const val composeUiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$composeVersion"
     const val composeFoundation = "androidx.compose.foundation:foundation:$composeVersion"
-    const val composeMaterial = "androidx.compose.material:material:$composeVersion"
     const val composeIconsExtended = "androidx.compose.material:material-icons-extended:$composeVersion"
 
     private const val composeNavigationVersion = "2.5.3"
@@ -17,6 +16,9 @@ object Deps {
 
     private const val coilComposeVersion = "2.1.0"
     const val coilCompose = "io.coil-kt:coil-compose:$coilComposeVersion"
+
+    private const val material3 = "1.0.1"
+    const val composeMaterial3 = "androidx.compose.material3:material3:$material3"
 
     // KOTLIN DATE TIME
     private const val dateTimeVersion = "0.4.0"
@@ -37,6 +39,7 @@ object Deps {
     const val ktorSerializationJson = "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
     const val ktorAndroid = "io.ktor:ktor-client-android:$ktorVersion"
     const val ktorIOS = "io.ktor:ktor-client-ios:$ktorVersion"
+    const val ktorCio = "io.ktor:ktor-client-cio:$ktorVersion"
 
     // GRADLE PLUGINS
     const val kotlinVersion = "1.9.20"
@@ -77,4 +80,18 @@ object Deps {
 
     private const val rulesVersion = "1.4.0"
     const val rules = "androidx.test:rules:$rulesVersion"
+
+    // For media playback using ExoPlayer
+    private const val media3Version = "1.0.0-rc01"
+    const val media3 = "androidx.media3:media3-exoplayer:$media3Version"
+
+    //SupaBase
+    private const val supabaseVersion = "2.0.1"
+    const val supabase = "io.github.jan-tennert.supabase:bom:$supabaseVersion"
+    const val supabasePostgrest = "io.github.jan-tennert.supabase:postgrest-kt"
+
+    private const val koinVersion = "3.5.3"
+    const val koinCore = "io.insert-koin:koin-core:$koinVersion"
+    const val koinAndroid = "io.insert-koin:koin-android:$koinVersion"
+    const val koin_compose = "io.insert-koin:koin-androidx-compose:$koinVersion"
 }

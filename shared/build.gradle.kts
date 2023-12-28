@@ -40,9 +40,14 @@ kotlin {
                 implementation(Deps.ktorCore)
                 implementation(Deps.ktorSerialization)
                 implementation(Deps.ktorSerializationJson)
+                implementation(Deps.ktorCio)
                 implementation(Deps.sqlDelightRuntime)
                 implementation(Deps.sqlDelightCoroutinesExtensions)
                 implementation(Deps.kotlinDateTime)
+                implementation(Deps.media3)
+                implementation(platform(Deps.supabase))
+                implementation(Deps.supabasePostgrest)
+                implementation(Deps.koinCore)
             }
         }
         val commonTest by getting {
@@ -86,5 +91,11 @@ android {
         sourceCompatibility(JavaVersion.VERSION_17)
         targetCompatibility(JavaVersion.VERSION_17)
     }
+}
 
+sqldelight{
+    database("LikeDatabase"){
+        packageName = "com.devjeong.watermelon_player.database"
+        sourceFolders = listOf("sqldelight")
+    }
 }
