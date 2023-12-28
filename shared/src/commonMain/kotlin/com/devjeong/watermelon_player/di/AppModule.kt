@@ -16,6 +16,8 @@ val appModule = module {
         MusicRepositoryImpl(httpClient = KtorMusicClient.httpClient)
     }
 
+    single { MusicListViewModel(musicRepository = get()) }
+
     factory { (coroutineScope: CoroutineScope?) ->
         MusicListViewModel(
             musicRepository = get(),

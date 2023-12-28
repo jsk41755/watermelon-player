@@ -7,12 +7,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.devjeong.watermelon_player.Greeting
-import com.devjeong.watermelon_player.android.player.presentation.DetailScreen
+import androidx.navigation.navArgument
+import com.devjeong.watermelon_player.android.player.presentation.PlayerScreen
+import com.devjeong.watermelon_player.android.playlist.presentation.AndroidMusicListViewModel
 import com.devjeong.watermelon_player.android.playlist.presentation.PlayListScreen
 
 class MainActivity : ComponentActivity() {
@@ -34,6 +36,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MusicRoot() {
     val navController = rememberNavController()
+    val musicListViewModel: AndroidMusicListViewModel = viewModel()
 
     NavHost(
         navController = navController,
@@ -42,12 +45,14 @@ fun MusicRoot() {
         composable(
             "lazyColumnSample"
         ) {
-            PlayListScreen(navController)
+            PlayListScreen(navController, musicListViewModel)
         }
         composable(
-            "detailScreen"
-        ) {
-            DetailScreen(navController)
+            "PlayerScreen/{musicId}",
+            arguments = listOf(navArgument("musicId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val musicId = backStackEntry.arguments?.getInt("musicId") ?: -1
+            PlayerScreen(navController, musicListViewModel, musicId)
         }
     }
 }
