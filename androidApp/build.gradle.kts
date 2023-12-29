@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("com.google.devtools.ksp")
-    //id("dagger.hilt.android.plugin")
     kotlin("plugin.serialization") version Deps.kotlinVersion
 }
 

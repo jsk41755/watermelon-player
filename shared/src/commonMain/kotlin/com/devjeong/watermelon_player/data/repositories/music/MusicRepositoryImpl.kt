@@ -1,6 +1,8 @@
-package com.devjeong.watermelon_player.playlist.data.repository
+package com.devjeong.watermelon_player.data.repositories.music
 
-import com.devjeong.watermelon_player.playlist.model.Music
+import com.devjeong.watermelon_player.constants.NetworkConstants
+import com.devjeong.watermelon_player.data.repositories.music.MusicRepository
+import com.devjeong.watermelon_player.models.Music
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -10,14 +12,11 @@ import kotlinx.serialization.json.Json
 
 class MusicRepositoryImpl(private val httpClient: HttpClient) : MusicRepository {
     override suspend fun fetchMusicList(): List<Music> {
-        val getUrl = "https://pxirsujsuyrqhmwbegrx.supabase.co/rest/v1/Music"
-
-        val response: HttpResponse =
-            httpClient.get(getUrl) {
-                url {
-                    parameters.append("select", "*")
-                }
+        val response: HttpResponse = httpClient.get(NetworkConstants.BASE_URL) {
+            url {
+                parameters.append("select", "*")
             }
+        }
 
         if (response.status.isSuccess()) {
             val responseBody: String = response.body()

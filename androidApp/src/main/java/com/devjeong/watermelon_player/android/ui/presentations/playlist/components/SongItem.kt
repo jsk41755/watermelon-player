@@ -1,4 +1,4 @@
-package com.devjeong.watermelon_player.android.playlist.presentation.components
+package com.devjeong.watermelon_player.android.ui.presentations.playlist.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.devjeong.watermelon_player.playlist.model.Music
+import com.devjeong.watermelon_player.models.Music
 
 @Composable
 fun SongItem(navController: NavController, music: Music) {

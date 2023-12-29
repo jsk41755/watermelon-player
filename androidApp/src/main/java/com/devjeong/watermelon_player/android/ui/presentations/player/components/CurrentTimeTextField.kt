@@ -1,4 +1,4 @@
-package com.devjeong.watermelon_player.android.player.presentation.components
+package com.devjeong.watermelon_player.android.ui.presentations.player.components
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

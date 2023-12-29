@@ -1,4 +1,4 @@
-package com.devjeong.watermelon_player.android.player.presentation.components
+package com.devjeong.watermelon_player.android.ui.presentations.player.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
