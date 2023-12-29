@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.devjeong.watermelon_player.android.R
 import com.devjeong.watermelon_player.android.player.presentation.components.ContentImage
 import com.devjeong.watermelon_player.android.player.presentation.components.CurrentTimeTextField
 import com.devjeong.watermelon_player.android.player.presentation.components.CustomProgressBar
@@ -24,10 +23,16 @@ import com.devjeong.watermelon_player.android.player.presentation.components.Cus
 import com.devjeong.watermelon_player.android.player.presentation.components.LikeButton
 import com.devjeong.watermelon_player.android.player.presentation.components.MusicControlButtons
 import com.devjeong.watermelon_player.android.player.presentation.components.SongInfo
+import com.devjeong.watermelon_player.android.playlist.presentation.AndroidMusicListViewModel
 
 @Composable
-fun DetailScreen(navController: NavController) {
+fun PlayerScreen(
+    navController: NavController,
+    musicListViewModel: AndroidMusicListViewModel,
+    musicId: Int
+) {
     val isLike = remember { mutableStateOf(false) }
+    val music = musicListViewModel.musicListViewModel.findMusicById(musicId)
 
     Column(
         modifier = Modifier
@@ -36,7 +41,7 @@ fun DetailScreen(navController: NavController) {
     ) {
         CustomTopAppBar(navController)
 
-        ContentImage(imageResId = R.drawable.rectangle_1332)
+        ContentImage(imageResId = music!!.img_url)
 
         Row(
             modifier = Modifier
@@ -45,7 +50,7 @@ fun DetailScreen(navController: NavController) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            SongInfo(title = "Trap Future Bass", artist = "RoyaltyFreeMusic")
+            SongInfo(title = music.title, artist = music.artists)
             LikeButton(isLike = isLike)
         }
 
@@ -56,7 +61,7 @@ fun DetailScreen(navController: NavController) {
                 .background(Color.LightGray)
                 .height(4.dp)
         ) {
-            CustomProgressBar(0.5f, "0:33", "03:21")
+            CustomProgressBar(0.5f, "0:33", music.duration)
         }
 
         Row(
@@ -65,7 +70,7 @@ fun DetailScreen(navController: NavController) {
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            CurrentTimeTextField("00:32", "03:21")
+            CurrentTimeTextField("00:32", music.duration)
         }
         MusicControlButtons()
     }
