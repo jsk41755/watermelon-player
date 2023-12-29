@@ -1,4 +1,4 @@
-package com.devjeong.watermelon_player.android.player.presentation
+package com.devjeong.watermelon_player.android.ui.presentations.player
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,23 +16,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.devjeong.watermelon_player.android.player.presentation.components.ContentImage
-import com.devjeong.watermelon_player.android.player.presentation.components.CurrentTimeTextField
-import com.devjeong.watermelon_player.android.player.presentation.components.CustomProgressBar
-import com.devjeong.watermelon_player.android.player.presentation.components.CustomTopAppBar
-import com.devjeong.watermelon_player.android.player.presentation.components.LikeButton
-import com.devjeong.watermelon_player.android.player.presentation.components.MusicControlButtons
-import com.devjeong.watermelon_player.android.player.presentation.components.SongInfo
-import com.devjeong.watermelon_player.android.playlist.presentation.AndroidMusicListViewModel
+import com.devjeong.watermelon_player.android.ui.presentations.player.components.ContentImage
+import com.devjeong.watermelon_player.android.ui.presentations.player.components.CurrentTimeTextField
+import com.devjeong.watermelon_player.android.ui.presentations.player.components.CustomProgressBar
+import com.devjeong.watermelon_player.android.ui.presentations.player.components.CustomTopAppBar
+import com.devjeong.watermelon_player.android.ui.presentations.player.components.LikeButton
+import com.devjeong.watermelon_player.android.ui.presentations.player.components.MusicControlButtons
+import com.devjeong.watermelon_player.android.ui.presentations.player.components.SongInfo
+import com.devjeong.watermelon_player.presentations.MusicListViewModel
 
 @Composable
 fun PlayerScreen(
     navController: NavController,
-    musicListViewModel: AndroidMusicListViewModel,
+    musicListViewModel: MusicListViewModel,
     musicId: Int
 ) {
     val isLike = remember { mutableStateOf(false) }
-    val music = musicListViewModel.musicListViewModel.findMusicById(musicId)
+    val music = musicListViewModel.findMusicById(musicId)
 
     Column(
         modifier = Modifier

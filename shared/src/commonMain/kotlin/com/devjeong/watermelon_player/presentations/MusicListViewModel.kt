@@ -1,7 +1,7 @@
-package com.devjeong.watermelon_player.playlist.presentation
+package com.devjeong.watermelon_player.presentations
 
-import com.devjeong.watermelon_player.playlist.data.repository.MusicRepository
-import com.devjeong.watermelon_player.playlist.model.Music
+import com.devjeong.watermelon_player.data.repositories.music.MusicRepository
+import com.devjeong.watermelon_player.models.Music
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

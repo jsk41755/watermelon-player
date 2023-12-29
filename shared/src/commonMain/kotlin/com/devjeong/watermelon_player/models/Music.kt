@@ -1,4 +1,4 @@
-package com.devjeong.watermelon_player.playlist.model
+package com.devjeong.watermelon_player.models
 
 import kotlinx.serialization.Serializable
 

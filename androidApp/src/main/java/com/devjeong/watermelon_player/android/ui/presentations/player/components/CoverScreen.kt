@@ -1,4 +1,4 @@
-package com.devjeong.watermelon_player.android.player.presentation.components
+package com.devjeong.watermelon_player.android.ui.presentations.player.components
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width

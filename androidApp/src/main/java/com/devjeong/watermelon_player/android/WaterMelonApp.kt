@@ -13,7 +13,7 @@ class WaterMelonApp : Application() {
         startKoin {
             androidContext(this@WaterMelonApp)
             androidLogger()
-            modules(appModule)
+            modules(appModule())
         }
     }
 }
