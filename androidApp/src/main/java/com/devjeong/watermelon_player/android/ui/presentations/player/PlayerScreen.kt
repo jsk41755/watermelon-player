@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,8 +29,8 @@ fun PlayerScreen(
     playListViewModel: PlayListViewModel,
     musicId: Int
 ) {
-    val isLike = remember { mutableStateOf(false) }
     val music = playListViewModel.musicListViewModel.findMusicById(musicId)
+
 
     Column(
         modifier = Modifier
@@ -51,7 +49,12 @@ fun PlayerScreen(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             SongInfo(title = music.title, artist = music.artists)
-            LikeButton(isLike = isLike)
+            LikeButton(
+                initialIsLiked = music.like,
+                onClick = { newLikeStatus ->
+                    playListViewModel.musicListViewModel.toggleMusicLike(music.id)
+                }
+            )
         }
 
         Box(

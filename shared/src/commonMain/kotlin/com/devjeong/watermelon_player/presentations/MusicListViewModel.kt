@@ -41,18 +41,13 @@ class MusicListViewModel(
 
     fun toggleMusicLike(musicId: Int) {
         viewModelScope.launch {
-            try {
-                val music = findMusicById(musicId)
-                music?.let {
-                    musicRepository.toggleLike(musicId, !it.like)
-                    // 로컬 상태 업데이트
-                    _musicList.value = _musicList.value.map { m ->
-                        if (m.id == musicId) m.copy(like = !m.like) else m
-                    }
-                }
-            } catch (e: Exception) {
-                println("Error toggling like: ${e.message}")
+            val updatedList = _musicList.value.map { music ->
+                if (music.id == musicId) {
+                    musicRepository.toggleLike(music.id, !music.like)
+                    music.copy(like = !music.like)
+                } else music
             }
+            _musicList.value = updatedList
         }
     }
 }

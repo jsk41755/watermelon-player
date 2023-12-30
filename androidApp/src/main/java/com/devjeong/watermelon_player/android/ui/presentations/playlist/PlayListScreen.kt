@@ -7,14 +7,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 import com.devjeong.watermelon_player.android.ui.presentations.playlist.components.SongItem
-import com.devjeong.watermelon_player.presentations.MusicListViewModel
 
 @Composable
 fun PlayListScreen(navController: NavController, playListViewModel: PlayListViewModel) {
     val musicList by playListViewModel.musicListViewModel.musicList.collectAsState()
 
+    val sortedMusicList = musicList.sortedBy { it.id }
+
     LazyColumn {
-        items(items = musicList) { music ->
+        items(items = sortedMusicList) { music ->
             SongItem(navController = navController, music = music)
         }
     }
