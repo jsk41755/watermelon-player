@@ -17,3 +17,8 @@ data class Music(
     val createdAt: String,
     val like: Boolean
 )
+
+@Serializable
+data class MusicEditRequest (
+    val like: Boolean
+)

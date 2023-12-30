@@ -12,10 +12,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ContentImage(imageResId: String?) {
+fun ContentImage(imageResId: String) {
     GlideImage(
         model = imageResId,
         contentDescription = "Cover Screen",

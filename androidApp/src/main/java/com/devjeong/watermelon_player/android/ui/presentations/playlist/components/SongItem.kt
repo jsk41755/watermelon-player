@@ -93,7 +93,7 @@ fun ImageAndTextColumn(music: Music) {
             Text(
                 text = music.title,
                 modifier = Modifier
-                    .widthIn(max = 180.dp)
+                    .widthIn(max = 160.dp)
                     .heightIn(max = 24.dp),
                 style = TextStyle(
                     fontSize = 16.sp,
