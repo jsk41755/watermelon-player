@@ -28,7 +28,7 @@ fun MusicControlButtons() {
 
     Row(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(top = 36.dp)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically

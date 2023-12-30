@@ -1,6 +1,7 @@
 package com.devjeong.watermelon_player.android.ui.presentations.player.components
 
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -24,6 +25,7 @@ fun ContentImage(imageResId: String?) {
                 spotColor = Color(0x26000000),
                 ambientColor = Color(0x26000000)
             )
+            .padding(top = 24.dp)
             .clip(shape = RoundedCornerShape(size = 50.dp))
             .width(344.dp)
             .height(344.dp)

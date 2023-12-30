@@ -37,7 +37,7 @@ fun PlayerScreen(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp)
     ) {
         CustomTopAppBar(navController)
 
@@ -46,7 +46,7 @@ fun PlayerScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(top = 36.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -56,7 +56,7 @@ fun PlayerScreen(
 
         Box(
             modifier = Modifier
-                .padding(16.dp)
+                .padding(top = 24.dp)
                 .fillMaxWidth()
                 .background(Color.LightGray)
                 .height(4.dp)
@@ -67,7 +67,7 @@ fun PlayerScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .padding(top = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             CurrentTimeTextField("00:32", music.duration)
