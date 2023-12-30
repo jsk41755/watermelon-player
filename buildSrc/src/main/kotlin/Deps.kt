@@ -66,4 +66,8 @@ object Deps {
     //Gilde
     private const val glideVersion = "1.0.0-beta01"
     const val glideCompose = "com.github.bumptech.glide:compose:$glideVersion"
+
+    private const val json_version = "2.8.8"
+    const val json = "com.google.code.gson:gson:$json_version"
+
 }

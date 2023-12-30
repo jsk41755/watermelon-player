@@ -49,6 +49,7 @@ kotlin {
                 implementation(platform(Deps.supabase))
                 implementation(Deps.supabasePostgrest)
                 implementation(Deps.koinCore)
+                implementation(Deps.json)
             }
         }
         val androidMain by getting {
