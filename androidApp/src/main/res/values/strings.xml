@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_home">Home</string>
+    <string name="text_play_list">playList</string>
+    <string name="text_search">Search</string>
+    <string name="text_like">like</string>
+</resources>
