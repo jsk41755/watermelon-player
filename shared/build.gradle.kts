@@ -3,7 +3,6 @@ plugins {
     kotlin("native.cocoapods")
     id("com.android.library")
     kotlin("plugin.serialization") version Deps.kotlinVersion
-    id("com.squareup.sqldelight")
 }
 
 kotlin {
@@ -42,8 +41,6 @@ kotlin {
                 implementation(Deps.ktorSerializationJson)
                 implementation(Deps.ktorCio)
                 implementation(Deps.ktorLogging)
-                implementation(Deps.sqlDelightRuntime)
-                implementation(Deps.sqlDelightCoroutinesExtensions)
                 implementation(Deps.kotlinDateTime)
                 implementation(Deps.media3)
                 implementation(platform(Deps.supabase))
@@ -55,7 +52,6 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(Deps.ktorAndroid)
-                implementation(Deps.sqlDelightAndroidDriver)
             }
         }
         //val androidTest by getting
@@ -65,7 +61,6 @@ kotlin {
         val iosMain by getting {
             dependencies {
                 implementation(Deps.ktorIOS)
-                implementation(Deps.sqlDelightNativeDriver)
             }
         }
         val iosX64Test by getting
@@ -83,12 +78,5 @@ android {
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_17)
         targetCompatibility(JavaVersion.VERSION_17)
-    }
-}
-
-sqldelight{
-    database("LikeDatabase"){
-        packageName = "com.devjeong.watermelon_player.database"
-        sourceFolders = listOf("sqldelight")
     }
 }

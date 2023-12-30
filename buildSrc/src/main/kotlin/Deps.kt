@@ -39,17 +39,7 @@ object Deps {
     private const val gradleVersion = "8.2.0"
     const val androidBuildTools = "com.android.tools.build:gradle:$gradleVersion"
 
-    private const val sqlDelightGradleVersion = "1.5.3"
-    const val sqlDelightGradlePlugin = "com.squareup.sqldelight:gradle-plugin:$sqlDelightGradleVersion"
-
-    // SQLDELIGHT
-    private const val sqlDelightVersion = "1.5.4"
-    const val sqlDelightRuntime = "com.squareup.sqldelight:runtime:$sqlDelightVersion"
-    const val sqlDelightAndroidDriver = "com.squareup.sqldelight:android-driver:$sqlDelightVersion"
-    const val sqlDelightNativeDriver = "com.squareup.sqldelight:native-driver:$sqlDelightVersion"
-    const val sqlDelightCoroutinesExtensions = "com.squareup.sqldelight:coroutines-extensions:$sqlDelightVersion"
-
-    // For media playback using ExoPlayer
+    // Android Media3
     private const val media3Version = "1.0.0-rc01"
     const val media3 = "androidx.media3:media3-exoplayer:$media3Version"
 

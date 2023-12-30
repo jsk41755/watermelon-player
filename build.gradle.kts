@@ -8,7 +8,6 @@ buildscript {
     dependencies {
         classpath(Deps.kotlinGradlePlugin)
         classpath(Deps.androidBuildTools)
-        classpath(Deps.sqlDelightGradlePlugin)
         classpath("com.android.tools.build:gradle:$agp_version")
     }
 }
