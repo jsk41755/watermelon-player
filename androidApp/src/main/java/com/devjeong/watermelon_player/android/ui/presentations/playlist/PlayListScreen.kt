@@ -12,10 +12,8 @@ import com.devjeong.watermelon_player.android.ui.presentations.playlist.componen
 fun PlayListScreen(navController: NavController, playListViewModel: PlayListViewModel) {
     val musicList by playListViewModel.musicListViewModel.musicList.collectAsState()
 
-    val sortedMusicList = musicList.sortedBy { it.id }
-
     LazyColumn {
-        items(items = sortedMusicList) { music ->
+        items(items = musicList.sortedBy { it.id }) { music ->
             SongItem(navController = navController, music = music)
         }
     }

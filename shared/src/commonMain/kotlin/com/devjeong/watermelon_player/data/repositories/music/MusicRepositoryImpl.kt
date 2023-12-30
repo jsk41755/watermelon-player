@@ -28,6 +28,22 @@ class MusicRepositoryImpl(private val httpClient: HttpClient) : MusicRepository 
         }
     }
 
+    override suspend fun fetchLikeMusicList(): List<Music> {
+        val response: HttpResponse = httpClient.get(NetworkConstants.BASE_URL) {
+            url {
+                parameters.append("select", "*")
+                parameters.append("like","eq.true")
+            }
+        }
+
+        if (response.status.isSuccess()) {
+            val responseBody: String = response.body()
+            return Json.decodeFromString<List<Music>>(responseBody)
+        } else {
+            throw Exception("Failed to fetch music list: ${response.status.description}")
+        }
+    }
+
     override suspend fun toggleLike(id: Int, like: Boolean) {
         httpClient.patch(NetworkConstants.BASE_URL) {
             url {

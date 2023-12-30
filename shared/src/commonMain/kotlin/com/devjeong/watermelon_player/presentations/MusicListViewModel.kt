@@ -19,8 +19,12 @@ class MusicListViewModel(
     private val _musicList: MutableStateFlow<List<Music>> = MutableStateFlow(emptyList())
     val musicList: StateFlow<List<Music>> = _musicList.asStateFlow()
 
+    private val _likedMusicList: MutableStateFlow<List<Music>> = MutableStateFlow(emptyList())
+    val likedMusicList: StateFlow<List<Music>> = _likedMusicList.asStateFlow()
+
     init {
         fetchMusicList()
+        fetchLikeMusicList()
     }
 
     private fun fetchMusicList() {
@@ -28,6 +32,18 @@ class MusicListViewModel(
             try {
                 val fetchedMusic = musicRepository.fetchMusicList()
                 _musicList.value = fetchedMusic
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun fetchLikeMusicList() {
+        viewModelScope.launch {
+            try {
+                val fetchedLikeMusic = musicRepository.fetchLikeMusicList()
+                _likedMusicList.value = fetchedLikeMusic
 
             } catch (e: Exception) {
                 e.printStackTrace()
