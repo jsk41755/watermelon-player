@@ -30,7 +30,7 @@ import com.devjeong.watermelon_player.android.R
 fun CustomTopAppBar(navController: NavController) {
     TopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = Color.Black,
+            containerColor = Color(0xFF151515),
             titleContentColor = Color.White,
             actionIconContentColor = Color.White,
             navigationIconContentColor = Color.White

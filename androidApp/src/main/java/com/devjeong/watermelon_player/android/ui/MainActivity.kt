@@ -11,13 +11,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.devjeong.watermelon_player.android.MyApplicationTheme
 import com.devjeong.watermelon_player.android.ui.presentations.home.HomeScreen
 import com.devjeong.watermelon_player.android.ui.presentations.like.LikeScreen
 import com.devjeong.watermelon_player.android.ui.presentations.navigation.BottomNavigationBar
+import com.devjeong.watermelon_player.android.ui.presentations.player.PlayerScreen
 import com.devjeong.watermelon_player.android.ui.presentations.playlist.PlayListScreen
 import com.devjeong.watermelon_player.android.ui.presentations.playlist.PlayListViewModel
 import com.devjeong.watermelon_player.android.ui.presentations.search.SearchScreen
@@ -45,8 +49,14 @@ fun MusicRoot() {
     val navController = rememberNavController()
     val playListViewModel: PlayListViewModel = get()
 
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+
     Scaffold(
-        bottomBar = { BottomNavigationBar(navController) }
+        bottomBar = {
+            if (currentRoute != "player/{musicId}") {
+                BottomNavigationBar(navController)
+            }
+        }
     ) { innerPadding ->
         NavHost(
             navController = navController,
@@ -57,6 +67,13 @@ fun MusicRoot() {
             composable("playlist") { PlayListScreen(navController, playListViewModel) }
             composable("search") { SearchScreen() }
             composable("like") { LikeScreen() }
+            composable(
+                route = "player/{musicId}",
+                arguments = listOf(navArgument("musicId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val musicId = backStackEntry.arguments?.getInt("musicId") ?: -1
+                PlayerScreen(navController, playListViewModel, musicId)
+            }
         }
     }
 }

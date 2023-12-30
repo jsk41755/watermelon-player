@@ -37,7 +37,7 @@ fun SongItem(navController: NavController, music: Music) {
     Box(
         modifier = Modifier
             .clickable {
-                navController.navigate("PlayerScreen/${music.id}")
+                navController.navigate("player/${music.id}")
             }
             .padding(horizontal = 23.dp)
             .padding(vertical = 12.dp)
