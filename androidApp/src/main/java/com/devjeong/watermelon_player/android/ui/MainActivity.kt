@@ -11,6 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -47,7 +48,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MusicRoot() {
     val navController = rememberNavController()
-    val playListViewModel: PlayListViewModel = get()
+    val playListViewModel: PlayListViewModel = viewModel()
 
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
 
