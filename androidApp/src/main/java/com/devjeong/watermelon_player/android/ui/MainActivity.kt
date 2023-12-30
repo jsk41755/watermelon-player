@@ -16,6 +16,7 @@ import androidx.navigation.navArgument
 import com.devjeong.watermelon_player.android.MyApplicationTheme
 import com.devjeong.watermelon_player.android.ui.presentations.player.PlayerScreen
 import com.devjeong.watermelon_player.android.ui.presentations.playlist.PlayListScreen
+import com.devjeong.watermelon_player.android.ui.presentations.playlist.PlayListViewModel
 import com.devjeong.watermelon_player.presentations.MusicListViewModel
 import org.koin.androidx.compose.get
 
@@ -38,7 +39,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MusicRoot() {
     val navController = rememberNavController()
-    val musicListViewModel: MusicListViewModel = get()
+    val playListViewModel: PlayListViewModel = get()
 
     NavHost(
         navController = navController,
@@ -47,14 +48,14 @@ fun MusicRoot() {
         composable(
             "lazyColumnSample"
         ) {
-            PlayListScreen(navController, musicListViewModel)
+            PlayListScreen(navController, playListViewModel)
         }
         composable(
             "PlayerScreen/{musicId}",
             arguments = listOf(navArgument("musicId") { type = NavType.IntType })
         ) { backStackEntry ->
             val musicId = backStackEntry.arguments?.getInt("musicId") ?: -1
-            PlayerScreen(navController, musicListViewModel, musicId)
+            PlayerScreen(navController, playListViewModel, musicId)
         }
     }
 }

@@ -10,8 +10,8 @@ import com.devjeong.watermelon_player.android.ui.presentations.playlist.componen
 import com.devjeong.watermelon_player.presentations.MusicListViewModel
 
 @Composable
-fun PlayListScreen(navController: NavController, musicListViewModel: MusicListViewModel) {
-    val musicList by musicListViewModel.musicList.collectAsState()
+fun PlayListScreen(navController: NavController, playListViewModel: PlayListViewModel) {
+    val musicList by playListViewModel.musicListViewModel.musicList.collectAsState()
 
     LazyColumn {
         items(items = musicList) { music ->

@@ -1,6 +1,7 @@
 package com.devjeong.watermelon_player.android
 
 import android.app.Application
+import com.devjeong.watermelon_player.android.di.androidModule
 import com.devjeong.watermelon_player.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -13,7 +14,7 @@ class WaterMelonApp : Application() {
         startKoin {
             androidContext(this@WaterMelonApp)
             androidLogger()
-            modules(appModule())
+            modules(appModule() + androidModule())
         }
     }
 }

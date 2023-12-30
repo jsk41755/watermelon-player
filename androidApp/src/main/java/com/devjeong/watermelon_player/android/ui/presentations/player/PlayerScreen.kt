@@ -23,16 +23,16 @@ import com.devjeong.watermelon_player.android.ui.presentations.player.components
 import com.devjeong.watermelon_player.android.ui.presentations.player.components.LikeButton
 import com.devjeong.watermelon_player.android.ui.presentations.player.components.MusicControlButtons
 import com.devjeong.watermelon_player.android.ui.presentations.player.components.SongInfo
-import com.devjeong.watermelon_player.presentations.MusicListViewModel
+import com.devjeong.watermelon_player.android.ui.presentations.playlist.PlayListViewModel
 
 @Composable
 fun PlayerScreen(
     navController: NavController,
-    musicListViewModel: MusicListViewModel,
+    playListViewModel: PlayListViewModel,
     musicId: Int
 ) {
     val isLike = remember { mutableStateOf(false) }
-    val music = musicListViewModel.findMusicById(musicId)
+    val music = playListViewModel.musicListViewModel.findMusicById(musicId)
 
     Column(
         modifier = Modifier
@@ -41,7 +41,7 @@ fun PlayerScreen(
     ) {
         CustomTopAppBar(navController)
 
-        ContentImage(imageResId = music!!.img_url)
+        ContentImage(imageResId = music!!.imgUrl)
 
         Row(
             modifier = Modifier

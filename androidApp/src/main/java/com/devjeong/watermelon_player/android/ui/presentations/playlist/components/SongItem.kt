@@ -79,7 +79,7 @@ fun ImageAndTextColumn(music: Music) {
     Row(verticalAlignment = Alignment.CenterVertically) {
 
         GlideImage(
-            model = music.img_url,
+            model = music.imgUrl,
             contentDescription = "Cover Screen",
             modifier = Modifier
                 .width(60.dp)

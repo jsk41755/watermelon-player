@@ -1,5 +1,6 @@
 package com.devjeong.watermelon_player.models
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -7,8 +8,12 @@ data class Music(
     val id: Int,
     val title: String,
     val artists: String,
-    val img_url: String,
-    val stream_url: String,
+    @SerialName("img_url")
+    val imgUrl: String,
+    @SerialName("stream_url")
+    val streamUrl: String,
     val duration: String,
-    val created_at: String
+    @SerialName("created_at")
+    val createdAt: String,
+    val like: Boolean
 )
