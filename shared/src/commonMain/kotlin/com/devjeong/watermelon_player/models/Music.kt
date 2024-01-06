@@ -12,7 +12,7 @@ data class Music(
     val imgUrl: String,
     @SerialName("stream_url")
     val streamUrl: String,
-    val duration: String,
+    val duration: Int,
     @SerialName("created_at")
     val createdAt: String,
     val like: Boolean

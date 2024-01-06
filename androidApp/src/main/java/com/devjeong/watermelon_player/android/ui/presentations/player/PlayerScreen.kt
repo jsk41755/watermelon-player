@@ -52,7 +52,7 @@ fun PlayerScreen(
 
     val music = playListViewModel.musicListViewModel.findMusicById(currentSongId.intValue)
 
-    //Log.d("musicId22", music!!.id.toString())
+    Log.d("musicId22", music!!.id.toString())
 
     LaunchedEffect(currentSongId) {
         playViewModel.stopAndPlayMusicById(musicId)
@@ -78,7 +78,7 @@ fun PlayerScreen(
             SongInfo(title = music.title, artist = music.artists)
             LikeButton(
                 initialIsLiked = music.like,
-                onClick = { newLikeStatus ->
+                onClick = { _ ->
                     playListViewModel.musicListViewModel.toggleMusicLike(music.id)
                 }
             )
