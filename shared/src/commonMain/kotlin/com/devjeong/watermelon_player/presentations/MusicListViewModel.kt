@@ -2,6 +2,7 @@ package com.devjeong.watermelon_player.presentations
 
 import com.devjeong.watermelon_player.data.repositories.music.MusicRepository
 import com.devjeong.watermelon_player.models.Music
+import com.devjeong.watermelon_player.player.AudioPlayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,7 @@ import kotlinx.coroutines.launch
 class MusicListViewModel(
     private val musicRepository: MusicRepository,
     private val coroutineScope: CoroutineScope? = null
-) {
+): AudioPlayer() {
     private val viewModelScope = coroutineScope ?: CoroutineScope(Dispatchers.Main)
 
     private val _musicList: MutableStateFlow<List<Music>> = MutableStateFlow(emptyList())
