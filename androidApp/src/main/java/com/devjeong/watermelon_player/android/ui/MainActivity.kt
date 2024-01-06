@@ -10,6 +10,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -21,7 +23,9 @@ import com.devjeong.watermelon_player.android.MyApplicationTheme
 import com.devjeong.watermelon_player.android.ui.presentations.home.HomeScreen
 import com.devjeong.watermelon_player.android.ui.presentations.like.LikeScreen
 import com.devjeong.watermelon_player.android.ui.presentations.navigation.BottomNavigationBar
+import com.devjeong.watermelon_player.android.ui.presentations.player.PlayViewModel
 import com.devjeong.watermelon_player.android.ui.presentations.player.PlayerScreen
+import com.devjeong.watermelon_player.android.ui.presentations.player.toMediaItemList
 import com.devjeong.watermelon_player.android.ui.presentations.playlist.PlayListScreen
 import com.devjeong.watermelon_player.android.ui.presentations.playlist.PlayListViewModel
 import com.devjeong.watermelon_player.android.ui.presentations.search.SearchScreen
@@ -48,6 +52,15 @@ class MainActivity : ComponentActivity() {
 fun MusicRoot() {
     val navController = rememberNavController()
     val playListViewModel: PlayListViewModel = get()
+    val playViewModel: PlayViewModel = get()
+
+    val musicList by playListViewModel.musicListViewModel.musicList.collectAsState()
+
+    playViewModel.apply {
+        initialize(musicList.toMediaItemList())  // TEST;
+        onPlayPauseClick()
+    }
+
 
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
 

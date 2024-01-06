@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.devjeong.watermelon_player.android.R
+import com.devjeong.watermelon_player.android.ui.presentations.player.PlayViewModel
 
 @Composable
 fun MusicControlButtons() {
