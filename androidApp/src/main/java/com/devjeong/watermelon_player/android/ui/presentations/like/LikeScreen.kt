@@ -1,39 +1,47 @@
 package com.devjeong.watermelon_player.android.ui.presentations.like
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import android.app.Activity
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import com.devjeong.watermelon_player.android.MyApplicationTheme
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.view.WindowCompat
+import androidx.navigation.NavController
+import com.devjeong.watermelon_player.android.ui.presentations.playlist.PlayListViewModel
+import com.devjeong.watermelon_player.android.ui.presentations.playlist.components.NowPlayMusic
+import com.devjeong.watermelon_player.android.ui.presentations.playlist.components.SongItem
 
 @Composable
-fun LikeScreen() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-    ) {
-        Text(
-            text = "좋아요",
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center,
-            color = Color.White,
-            modifier = Modifier.align(Alignment.Center)
-        )
+fun LikeScreen(navController: NavController, playListViewModel: PlayListViewModel) {
+    val backgroundColor = remember {
+        Color(0xFFDBDBDB)
     }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        LikeScreen()
+    val context = LocalContext.current
+    val window = (context as Activity).window
+
+    SideEffect {
+        window.statusBarColor = backgroundColor.toArgb()
+        WindowCompat.getInsetsController(window, window.decorView)
+            .isAppearanceLightStatusBars = true
+    }
+
+    val likedMusicList by playListViewModel.musicListViewModel.likedMusicList.collectAsState()
+
+    Column {
+        NowPlayMusic(backgroundColor)
+
+        LazyColumn {
+            items(items = likedMusicList.sortedBy { it.id }) { music ->
+                SongItem(navController = navController, music = music)
+            }
+        }
     }
 }

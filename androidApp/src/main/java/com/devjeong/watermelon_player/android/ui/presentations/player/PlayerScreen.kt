@@ -1,5 +1,6 @@
 package com.devjeong.watermelon_player.android.ui.presentations.player
 
+import android.app.Activity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,10 +10,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
 import androidx.navigation.NavController
 import com.devjeong.watermelon_player.android.ui.presentations.player.components.ContentImage
 import com.devjeong.watermelon_player.android.ui.presentations.player.components.CurrentTimeTextField
@@ -29,8 +34,16 @@ fun PlayerScreen(
     playListViewModel: PlayListViewModel,
     musicId: Int
 ) {
-    val music = playListViewModel.musicListViewModel.findMusicById(musicId)
+    val context = LocalContext.current
+    val window = (context as Activity).window
 
+    SideEffect {
+        window.statusBarColor = Color(0xFF151515).toArgb()
+        WindowCompat.getInsetsController(window, window.decorView)
+            .isAppearanceLightStatusBars = false
+    }
+
+    val music = playListViewModel.musicListViewModel.findMusicById(musicId)
 
     Column(
         modifier = Modifier
