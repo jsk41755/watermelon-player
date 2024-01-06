@@ -1,6 +1,10 @@
 package com.devjeong.watermelon_player.player
 
+import platform.AVFoundation.AVPlayerItem
+
 actual class Player actual constructor() {
+    private val playerItems = mutableListOf<AVPlayerItem>()
+
     actual fun play() {
     }
 
