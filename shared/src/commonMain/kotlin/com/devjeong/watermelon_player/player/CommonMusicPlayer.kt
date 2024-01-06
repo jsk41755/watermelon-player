@@ -1,6 +1,6 @@
 package com.devjeong.watermelon_player.player
 
-expect class MusicPlayer(playerStates: PlayerStates) {
+expect class CommonMusicPlayer(){
     fun play()
     fun pause()
     fun next()

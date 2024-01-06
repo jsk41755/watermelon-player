@@ -19,12 +19,7 @@ class PlayViewModel(
     private var isAuto: Boolean = false
 
     fun initialize(trackList: MutableList<MediaItem>) {
-        musicPlayer.iniPlayer(trackList)
-        observePlayerState()
-    }
-
-    private fun observePlayerState() {
-        // TODO;
+        musicPlayer.initialize(trackList)
     }
 
     override fun onPlayPauseClick() {
@@ -44,8 +39,7 @@ class PlayViewModel(
     }
 
     private fun setUpTrack() {
-        if (!isAuto) musicPlayer.setUpTrack(selectedTrackIndex, isTrackPlay)
-        isAuto = false
+        // TODO;
     }
 
     override fun onSeekBarPositionChanged(position: Long) {
@@ -54,7 +48,7 @@ class PlayViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        musicPlayer.releasePlayer()
+       // musicPlayer.releasePlayer()
     }
 }
 
