@@ -66,7 +66,7 @@ fun MusicRoot() {
             composable("home") { HomeScreen() }
             composable("playlist") { PlayListScreen(navController, playListViewModel) }
             composable("search") { SearchScreen() }
-            composable("like") { LikeScreen() }
+            composable("like") { LikeScreen(navController, playListViewModel) }
             composable(
                 route = "player/{musicId}",
                 arguments = listOf(navArgument("musicId") { type = NavType.IntType })
