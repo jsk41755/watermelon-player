@@ -16,6 +16,8 @@ class PlayViewModel(
 ) : BaseViewModel(), PlayerEvents {
     private var trackList: List<Music> = listOf()
 
+    private var currentPlayingSongId: Int? = null
+
     private val _tracks = mutableStateListOf<Track>()
     private var selectedTrackIndex: Int by mutableIntStateOf(-1)
     private var isTrackPlay: Boolean = false
@@ -23,7 +25,19 @@ class PlayViewModel(
 
     fun initialize(musicList: List<Music>) {
         trackList = musicList
-        musicPlayer.initialize(musicList.toMediaItemList())
+        musicPlayer.initialize(trackList.toMediaItemList())
+    }
+
+    fun playNewSong(musicId: Int) {
+        if (currentPlayingSongId != musicId) {
+            Log.d("currentPlayingSongId",currentPlayingSongId.toString())
+            Log.d("currentPlayingSongId",musicId.toString())
+            musicPlayer.pause()
+
+            // 새 노래 재생
+            currentPlayingSongId = musicId
+            playMusicById(musicId)
+        }
     }
 
     private fun playMusicById(musicId: Int) {
@@ -70,7 +84,7 @@ class PlayViewModel(
 
     override fun onCleared() {
         super.onCleared()
-       // musicPlayer.releasePlayer()
+        musicPlayer.releasePlayer()
     }
 }
 

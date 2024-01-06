@@ -1,6 +1,7 @@
 package com.devjeong.watermelon_player.player
 
 import android.content.Context
+import android.util.Log
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
@@ -17,7 +18,6 @@ actual class CommonMusicPlayer actual constructor() : Player.Listener {
     }
 
     actual fun play() {
-        // TODO; 재생 정지다
         if (player.playbackState == Player.STATE_IDLE) player.prepare()
         player.playWhenReady = !player.playWhenReady
     }
@@ -26,6 +26,7 @@ actual class CommonMusicPlayer actual constructor() : Player.Listener {
         if (this::player.isInitialized){
             player.playWhenReady = false
         }
+
     }
 
     actual fun next() {
@@ -48,5 +49,6 @@ actual class CommonMusicPlayer actual constructor() : Player.Listener {
     }
 
     actual fun cleanUp() {
+        player.release()
     }
 }

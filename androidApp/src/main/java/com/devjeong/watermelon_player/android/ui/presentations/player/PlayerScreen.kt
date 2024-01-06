@@ -52,11 +52,8 @@ fun PlayerScreen(
 
     val music = playListViewModel.musicListViewModel.findMusicById(currentSongId.intValue)
 
-    Log.d("musicId22", music!!.id.toString())
-
-    LaunchedEffect(currentSongId) {
-        playViewModel.stopAndPlayMusicById(musicId)
-        Log.d("musicId", currentSongId.toString())
+    LaunchedEffect(currentSongId.intValue) {
+        playViewModel.playNewSong(currentSongId.intValue)
     }
 
     Column(

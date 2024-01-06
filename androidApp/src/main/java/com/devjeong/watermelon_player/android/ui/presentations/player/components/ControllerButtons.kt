@@ -1,5 +1,6 @@
 package com.devjeong.watermelon_player.android.ui.presentations.player.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +33,8 @@ fun MusicControlButtons(
     currentSongId: MutableState<Int>
 ) {
     val isPlaying = remember { mutableStateOf(false) }
+    val isShuffled = remember { mutableStateOf(false) }
+    val isRepeat = remember { mutableStateOf(false) }
 
     val musicId = currentSongId.value
 
@@ -43,11 +46,15 @@ fun MusicControlButtons(
         verticalAlignment = Alignment.CenterVertically
     ) {
         // 반복 재생 버튼
-        IconButton(onClick = { /* 반복 재생 동작 */ }) {
+        IconButton(onClick = { isRepeat.value = !isRepeat.value }) {
             Icon(
                 painter = painterResource(id = R.drawable.repeat),
                 contentDescription = "반복 재생",
-                tint = Color(0xFF999999)
+                tint =
+                if (!isRepeat.value)
+                    Color(0xFF999999)
+                else
+                    Color(0xFFCAFB5C)
             )
         }
 
@@ -101,7 +108,13 @@ fun MusicControlButtons(
 
         IconButton(onClick = {
             val nextSongId =
-                playListViewModel.musicListViewModel.findNextSongId(currentSongId.value)
+                if (isRepeat.value) {
+                    currentSongId.value
+                } else if (isShuffled.value) {
+                    playListViewModel.musicListViewModel.findRandomNextSongId(currentSongId.value)
+                } else {
+                    playListViewModel.musicListViewModel.findNextSongId(currentSongId.value)
+                }
             playViewModel.onNextClick(nextSongId)
             currentSongId.value = nextSongId
         }) {
@@ -113,11 +126,17 @@ fun MusicControlButtons(
         }
 
         // 셔플 버튼
-        IconButton(onClick = { /* 셔플 동작 */ }) {
+        IconButton(onClick = {
+            isShuffled.value = !isShuffled.value
+        }) {
             Icon(
                 painter = painterResource(id = R.drawable.shuffle),
                 contentDescription = "셔플",
-                tint = Color(0xFF999999)
+                tint =
+                if (!isShuffled.value)
+                    Color(0xFF999999)
+                else
+                    Color(0xFFCAFB5C)
             )
         }
     }
