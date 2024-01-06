@@ -11,10 +11,22 @@ class MusicPlayer(private val commonMusicPlayer: CommonMusicPlayer) {
     }
 
     fun playPause() {
-        commonMusicPlayer.play()
+        if (commonMusicPlayer.player.isPlaying) {
+            commonMusicPlayer.pause()
+        } else {
+            commonMusicPlayer.play()
+        }
     }
 
     fun releasePlayer() {
+        commonMusicPlayer.cleanUp()
+    }
 
+    fun pause() {
+        commonMusicPlayer.pause()
+    }
+
+    fun play(songIndex: Int) {
+        commonMusicPlayer.play(songIndex)
     }
 }

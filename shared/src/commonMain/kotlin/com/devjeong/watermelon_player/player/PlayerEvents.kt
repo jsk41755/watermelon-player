@@ -4,8 +4,8 @@ import com.devjeong.watermelon_player.models.Music
 
 interface PlayerEvents {
     fun onPlayPauseClick()
-    fun onPreviousClick()
-    fun onNextClick()
+    fun onPreviousClick(previousId: Int)
+    fun onNextClick(nextId: Int)
     fun onTrackClick(music: Music)
     fun onSeekBarPositionChanged(position: Long)
 }

@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,10 +23,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.devjeong.watermelon_player.android.R
 import com.devjeong.watermelon_player.android.ui.presentations.player.PlayViewModel
+import com.devjeong.watermelon_player.android.ui.presentations.playlist.PlayListViewModel
 
 @Composable
-fun MusicControlButtons() {
+fun MusicControlButtons(
+    playListViewModel: PlayListViewModel,
+    playViewModel: PlayViewModel,
+    currentSongId: MutableState<Int>
+) {
     val isPlaying = remember { mutableStateOf(false) }
+
+    val musicId = currentSongId.value
 
     Row(
         modifier = Modifier
@@ -44,7 +52,16 @@ fun MusicControlButtons() {
         }
 
         // 이전 노래 버튼
-        IconButton(onClick = { /* 이전 노래 동작 */ }) {
+        IconButton(onClick = {
+            if (musicId - 1 == 0) {
+                playViewModel.onPreviousClick(musicId)
+            } else {
+                val previousSongId =
+                    playListViewModel.musicListViewModel.findPreviousSongId(currentSongId.value)
+                playViewModel.onPreviousClick(previousSongId)
+                currentSongId.value = previousSongId
+            }
+        }) {
             Icon(
                 painter = painterResource(id = R.drawable.skip_previous),
                 contentDescription = "이전 노래",
@@ -66,21 +83,28 @@ fun MusicControlButtons() {
                 ),
             contentAlignment = Alignment.Center
         ) {
-            IconButton(onClick = { isPlaying.value = !isPlaying.value }) {
+            IconButton(onClick = {
+                isPlaying.value = !isPlaying.value
+                playViewModel.onPlayPauseClick()
+            }) {
                 Icon(
                     painter =
-                    if (isPlaying.value)
+                    if (!isPlaying.value)
                         painterResource(id = R.drawable.pause)
                     else
                         painterResource(id = R.drawable.play),
-                    contentDescription = if (isPlaying.value) "일시정지" else "재생",
+                    contentDescription = if (!isPlaying.value) "일시정지" else "재생",
                     tint = Color.White
                 )
             }
         }
 
-        // 다음 노래 버튼
-        IconButton(onClick = { /* 다음 노래 동작 */ }) {
+        IconButton(onClick = {
+            val nextSongId =
+                playListViewModel.musicListViewModel.findNextSongId(currentSongId.value)
+            playViewModel.onNextClick(nextSongId)
+            currentSongId.value = nextSongId
+        }) {
             Icon(
                 painter = painterResource(id = R.drawable.skip_next),
                 contentDescription = "다음 노래",

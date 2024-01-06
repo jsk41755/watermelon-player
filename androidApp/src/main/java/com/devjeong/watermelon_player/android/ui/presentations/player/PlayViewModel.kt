@@ -1,5 +1,6 @@
 package com.devjeong.watermelon_player.android.ui.presentations.player
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
@@ -11,31 +12,52 @@ import com.devjeong.watermelon_player.models.Music
 import com.devjeong.watermelon_player.player.PlayerEvents
 
 class PlayViewModel(
-    private val musicPlayer: MusicPlayer,
+    private val musicPlayer: MusicPlayer
 ) : BaseViewModel(), PlayerEvents {
+    private var trackList: List<Music> = listOf()
+
     private val _tracks = mutableStateListOf<Track>()
     private var selectedTrackIndex: Int by mutableIntStateOf(-1)
     private var isTrackPlay: Boolean = false
     private var isAuto: Boolean = false
 
-    fun initialize(trackList: MutableList<MediaItem>) {
-        musicPlayer.initialize(trackList)
+    fun initialize(musicList: List<Music>) {
+        trackList = musicList
+        musicPlayer.initialize(musicList.toMediaItemList())
+    }
+
+    private fun playMusicById(musicId: Int) {
+        val index = trackList.indexOfFirst { it.id == musicId }
+        Log.d("index", index.toString())
+        if (index != -1) {
+            musicPlayer.play(index)
+        }
+    }
+
+    fun stopAndPlayMusicById(musicId: Int) {
+        // 현재 재생 중인 노래 정지
+        musicPlayer.pause()
+
+        // 새로운 노래 재생
+        playMusicById(musicId)
     }
 
     override fun onPlayPauseClick() {
         musicPlayer.playPause()
     }
 
-    override fun onPreviousClick() {
-        // TODO;
+    override fun onPreviousClick(previousId: Int) {
+        stopAndPlayMusicById(previousId)
     }
-
-    override fun onNextClick() {
-        // TODO;
+    override fun onNextClick(nextId: Int) {
+        stopAndPlayMusicById(nextId)
     }
 
     override fun onTrackClick(music: Music) {
-        // do nothing
+        val index = trackList.indexOf(music)
+        if (index != -1) {
+            musicPlayer.play(index)
+        }
     }
 
     private fun setUpTrack() {

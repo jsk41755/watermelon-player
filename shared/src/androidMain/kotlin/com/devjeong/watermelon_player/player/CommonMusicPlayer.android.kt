@@ -6,7 +6,7 @@ import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 
 actual class CommonMusicPlayer actual constructor() : Player.Listener {
-    private lateinit var player: ExoPlayer
+    lateinit var player: ExoPlayer
 
     fun initialize(context: Context, trackList: MutableList<MediaItem>) {
         player = ExoPlayer.Builder(context).build()
@@ -23,6 +23,9 @@ actual class CommonMusicPlayer actual constructor() : Player.Listener {
     }
 
     actual fun pause() {
+        if (this::player.isInitialized){
+            player.playWhenReady = false
+        }
     }
 
     actual fun next() {
@@ -32,6 +35,10 @@ actual class CommonMusicPlayer actual constructor() : Player.Listener {
     }
 
     actual fun play(songIndex: Int) {
+        if (songIndex >= 0 && songIndex < player.mediaItemCount) {
+            player.seekTo(songIndex, 0)
+            player.playWhenReady = true
+        }
     }
 
     actual fun seekTo(time: Double) {
@@ -42,6 +49,4 @@ actual class CommonMusicPlayer actual constructor() : Player.Listener {
 
     actual fun cleanUp() {
     }
-
-
 }
