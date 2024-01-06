@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.sp
 import com.devjeong.watermelon_player.android.R
 
 @Composable
-fun CurrentTimeTextField(currentTime: String, endTime: String) {
+fun CurrentTimeTextField(currentTime: String, endTime: Int) {
     Text(
         text = currentTime,
         style = TextStyle(
@@ -24,7 +24,7 @@ fun CurrentTimeTextField(currentTime: String, endTime: String) {
         )
     )
     Text(
-        text = endTime,
+        text = endTime.toString(),
         style = TextStyle(
             fontSize = 14.sp,
             lineHeight = 22.sp,

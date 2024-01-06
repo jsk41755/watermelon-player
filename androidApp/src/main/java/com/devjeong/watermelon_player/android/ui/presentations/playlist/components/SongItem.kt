@@ -121,7 +121,7 @@ fun ImageAndTextColumn(music: Music) {
 @Composable
 fun DurationText(music: Music) {
     Text(
-        text = music.duration,
+        text = music.duration.toString(),
         modifier = Modifier
             .padding(top = 22.dp, bottom = 22.dp, end = 20.dp),
         style = TextStyle(
