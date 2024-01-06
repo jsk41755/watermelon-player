@@ -44,7 +44,6 @@ class MusicListViewModel(
             try {
                 val fetchedLikeMusic = musicRepository.fetchLikeMusicList()
                 _likedMusicList.value = fetchedLikeMusic
-
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -64,6 +63,7 @@ class MusicListViewModel(
                 } else music
             }
             _musicList.value = updatedList
+            fetchLikeMusicList()
         }
     }
 }
