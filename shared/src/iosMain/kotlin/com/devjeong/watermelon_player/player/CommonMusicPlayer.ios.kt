@@ -1,6 +1,6 @@
 package com.devjeong.watermelon_player.player
 
-actual class Player actual constructor() {
+actual class CommonMusicPlayer actual constructor() {
     actual fun play() {
     }
 
@@ -24,4 +24,5 @@ actual class Player actual constructor() {
 
     actual fun cleanUp() {
     }
+
 }

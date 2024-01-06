@@ -17,6 +17,7 @@ class MusicListViewModel(
     private val viewModelScope = coroutineScope ?: CoroutineScope(Dispatchers.Main)
 
     private val _musicList: MutableStateFlow<List<Music>> = MutableStateFlow(emptyList())
+
     val musicList: StateFlow<List<Music>> = _musicList.asStateFlow()
 
     private val _likedMusicList: MutableStateFlow<List<Music>> = MutableStateFlow(emptyList())
