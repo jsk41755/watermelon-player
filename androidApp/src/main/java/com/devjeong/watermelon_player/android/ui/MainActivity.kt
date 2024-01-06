@@ -57,10 +57,8 @@ fun MusicRoot() {
     val musicList by playListViewModel.musicListViewModel.musicList.collectAsState()
 
     playViewModel.apply {
-        initialize(musicList.toMediaItemList())  // TEST;
-        onPlayPauseClick()
+        initialize(musicList)
     }
-
 
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
 
@@ -85,7 +83,7 @@ fun MusicRoot() {
                 arguments = listOf(navArgument("musicId") { type = NavType.IntType })
             ) { backStackEntry ->
                 val musicId = backStackEntry.arguments?.getInt("musicId") ?: -1
-                PlayerScreen(navController, playListViewModel, musicId)
+                PlayerScreen(navController, playListViewModel, musicId, playViewModel)
             }
         }
     }

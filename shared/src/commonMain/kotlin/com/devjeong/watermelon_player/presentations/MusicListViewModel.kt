@@ -67,4 +67,22 @@ class MusicListViewModel(
             fetchLikeMusicList()
         }
     }
+
+    fun findNextSongId(currentSongId: Int): Int {
+        val currentSongIndex = musicList.value.indexOfFirst { it.id == currentSongId }
+        return if (currentSongIndex == -1 || currentSongIndex == musicList.value.size - 1) {
+            musicList.value[0].id
+        } else {
+            musicList.value[currentSongIndex + 1].id
+        }
+    }
+
+    fun findPreviousSongId(currentSongId: Int): Int {
+        val currentSongIndex = musicList.value.indexOfFirst { it.id == currentSongId }
+        return if (currentSongIndex == 0 || currentSongIndex == musicList.value.size - 1) {
+            musicList.value[0].id
+        } else {
+            musicList.value[currentSongIndex - 1].id
+        }
+    }
 }
