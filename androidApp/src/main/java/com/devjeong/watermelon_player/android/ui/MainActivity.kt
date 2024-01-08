@@ -31,15 +31,28 @@ import com.devjeong.watermelon_player.android.ui.presentations.search.SearchScre
 import org.koin.androidx.compose.get
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val playListViewModel: PlayListViewModel = get()
+            val playViewModel: PlayViewModel = get()
+
+            val musicList by playListViewModel.musicListViewModel.musicList.collectAsState()
+
+            playViewModel.apply {
+                initialize(musicList)
+            }
+
             MyApplicationTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MusicRoot()
+                    MusicRoot(
+                        playListViewModel,
+                        playViewModel
+                    )
                 }
             }
         }
@@ -48,18 +61,13 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MusicRoot() {
+fun MusicRoot(
+    playListViewModel: PlayListViewModel,
+    playViewModel: PlayViewModel
+) {
     val navController = rememberNavController()
-    val playListViewModel: PlayListViewModel = get()
-    val playViewModel: PlayViewModel = get()
-
-    val musicList by playListViewModel.musicListViewModel.musicList.collectAsState()
-
-    playViewModel.apply {
-        initialize(musicList)
-    }
-
     val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+
 
     Scaffold(
         bottomBar = {
@@ -82,7 +90,12 @@ fun MusicRoot() {
                 arguments = listOf(navArgument("musicId") { type = NavType.IntType })
             ) { backStackEntry ->
                 val musicId = backStackEntry.arguments?.getInt("musicId") ?: -1
-                PlayerScreen(navController, playListViewModel, musicId, playViewModel)
+                PlayerScreen(
+                    navController,
+                    playListViewModel,
+                    musicId,
+                    playViewModel
+                )
             }
         }
     }

@@ -27,11 +27,11 @@ import androidx.navigation.NavController
 import com.devjeong.watermelon_player.android.extensions.convertToText
 import com.devjeong.watermelon_player.android.ui.presentations.player.components.ContentImage
 import com.devjeong.watermelon_player.android.ui.presentations.player.components.CurrentTimeTextField
+import com.devjeong.watermelon_player.android.ui.presentations.player.components.CustomSlider
 import com.devjeong.watermelon_player.android.ui.presentations.player.components.CustomTopAppBar
 import com.devjeong.watermelon_player.android.ui.presentations.player.components.LikeButton
 import com.devjeong.watermelon_player.android.ui.presentations.player.components.MusicControlButtons
 import com.devjeong.watermelon_player.android.ui.presentations.player.components.SongInfo
-import com.devjeong.watermelon_player.android.ui.presentations.player.components.TrackSlider
 import com.devjeong.watermelon_player.android.ui.presentations.playlist.PlayListViewModel
 import kotlinx.coroutines.delay
 
@@ -40,40 +40,10 @@ fun PlayerScreen(
     navController: NavController,
     playListViewModel: PlayListViewModel,
     musicId: Int,
-    playViewModel: PlayViewModel
+    playViewModel: PlayViewModel,
 ) {
     val context = LocalContext.current
     val window = (context as Activity).window
-
-    val currentSongId = remember { mutableIntStateOf(musicId) }
-
-    // TEST;
-    val currentPosition = remember { mutableLongStateOf(0) }
-
-    val isPlaying = remember { mutableStateOf(false) }
-
-    val sliderPosition = remember { mutableLongStateOf(0) }
-
-    val totalDuration = remember { mutableLongStateOf(0) }
-
-    val music = playListViewModel.musicListViewModel.findMusicById(currentSongId.intValue)
-
-    LaunchedEffect(currentSongId.intValue) {
-        playViewModel.playNewSong(currentSongId.intValue)
-    }
-
-    LaunchedEffect(
-        key1 = playViewModel.playerUtil.commonMusicPlayer.currentPosition(),
-        key2 = playViewModel.playerUtil.commonMusicPlayer.isPlaying()
-    ) {
-        delay(1000)
-        currentPosition.longValue = playViewModel.playerUtil.commonMusicPlayer.currentPosition()
-    }
-
-    LaunchedEffect(currentPosition.longValue) {
-        sliderPosition.longValue = currentPosition.longValue
-    }
-
 
     SideEffect {
         window.statusBarColor = Color(0xFF151515).toArgb()
@@ -81,12 +51,48 @@ fun PlayerScreen(
             .isAppearanceLightStatusBars = false
     }
 
+    val currentSongId = remember { mutableIntStateOf(musicId) }
+
+    val music = playListViewModel.musicListViewModel.findMusicById(currentSongId.intValue)
+
+    LaunchedEffect(currentSongId.intValue) {
+        val value = currentSongId.intValue
+        playViewModel.playNewSong(value)
+    }
+
+    val isPlaying = remember {
+        mutableStateOf(false)
+    }
+
+    val currentPosition = remember {
+        mutableLongStateOf(0)
+    }
+
+    val sliderPosition = remember {
+        mutableLongStateOf(0)
+    }
+
+    val totalDuration = remember {
+        mutableLongStateOf(0)
+    }
+
+    LaunchedEffect(
+        key1 = playViewModel.playerUtil.commonMusicPlayer.currentPosition(),
+        key2 = playViewModel.playerUtil.commonMusicPlayer.isPlaying()
+    ) {
+        delay(500)
+        currentPosition.longValue = playViewModel.playerUtil.commonMusicPlayer.currentPosition()
+    }
+
+    LaunchedEffect(currentPosition.longValue) {
+        sliderPosition.longValue = currentPosition.longValue
+    }
+
     LaunchedEffect(playViewModel.playerUtil.commonMusicPlayer.duration()) {
         if (playViewModel.playerUtil.commonMusicPlayer.duration() > 0) {
             totalDuration.longValue = playViewModel.playerUtil.commonMusicPlayer.duration()
         }
     }
-
 
     Column(
         modifier = Modifier
@@ -120,8 +126,7 @@ fun PlayerScreen(
                 .background(Color.LightGray)
                 .height(4.dp)
         ) {
-
-            TrackSlider(
+            CustomSlider(
                 value = sliderPosition.longValue.toFloat(),
                 onValueChange = {
                     sliderPosition.longValue = it.toLong()
@@ -132,9 +137,6 @@ fun PlayerScreen(
                 },
                 songDuration = totalDuration.longValue.toFloat()
             )
-
-
-//            CustomProgressBar(0.5f, "0:33", music.duration)
         }
 
         Row(
@@ -143,11 +145,9 @@ fun PlayerScreen(
                 .padding(top = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            val remainTime = totalDuration.longValue - currentPosition.longValue
-
             CurrentTimeTextField(
-                (currentPosition.longValue).convertToText(),
-                if (remainTime >= 0) remainTime.convertToText() else ""
+                currentPosition.longValue.convertToText(),
+                totalDuration.longValue.convertToText()
             )
         }
         MusicControlButtons(

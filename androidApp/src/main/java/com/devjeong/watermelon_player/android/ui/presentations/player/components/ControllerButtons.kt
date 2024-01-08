@@ -32,7 +32,6 @@ fun MusicControlButtons(
     currentSongId: MutableState<Int>,
     isPlaying: MutableState<Boolean>
 ) {
-//    val isPlaying = remember { mutableStateOf(false) }
     val isShuffled = remember { mutableStateOf(false) }
     val isRepeat = remember { mutableStateOf(false) }
 

@@ -1,23 +1,16 @@
 package com.devjeong.watermelon_player.android.ui.presentations.player
 
 import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.setValue
-import androidx.media3.extractor.mp4.Track
 import com.devjeong.watermelon_player.android.extensions.toMediaItemList
 import com.devjeong.watermelon_player.android.ui.presentations.BaseViewModel
 import com.devjeong.watermelon_player.android.utils.PlayerUtil
 import com.devjeong.watermelon_player.models.Music
 import com.devjeong.watermelon_player.player.PlayerEvents
-import kotlinx.coroutines.delay
 
 class PlayViewModel(
     val playerUtil: PlayerUtil
 ) : BaseViewModel(), PlayerEvents {
     private var trackList: List<Music> = listOf()
-
     private var currentPlayingSongId: Int? = null
 
     fun initialize(musicList: List<Music>) {
@@ -36,6 +29,10 @@ class PlayViewModel(
     }
 
     private fun playMusicById(musicId: Int) {
+        if (playerUtil.commonMusicPlayer.isPlaying()) {
+            playerUtil.commonMusicPlayer.pause()
+        }
+
         val index = trackList.indexOfFirst { it.id == musicId }
         Log.d("index", index.toString())
         if (index != -1) {

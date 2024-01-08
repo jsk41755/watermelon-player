@@ -1,13 +1,12 @@
 package com.devjeong.watermelon_player.player
 
 import android.content.Context
-import android.util.Log
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 
 actual class CommonMusicPlayer actual constructor() : Player.Listener {
-    lateinit var player: ExoPlayer
+    private lateinit var player: ExoPlayer
 
     fun initialize(context: Context, trackList: MutableList<MediaItem>) {
         player = ExoPlayer.Builder(context).build()
@@ -17,7 +16,6 @@ actual class CommonMusicPlayer actual constructor() : Player.Listener {
     }
 
     actual fun play() {
-//        player.play()
         if (player.playbackState == Player.STATE_IDLE) player.prepare()
         player.playWhenReady = !player.playWhenReady
     }
@@ -42,6 +40,11 @@ actual class CommonMusicPlayer actual constructor() : Player.Listener {
     }
 
     actual fun seekTo(time: Long) {
+        player.seekTo(time)
+    }
+
+    fun seekTo(mediaItemIndex: Int, positionMs: Long) {
+        player.seekTo(mediaItemIndex, positionMs)
     }
 
     actual fun addSongsUrls(songsUrl: List<String>) {

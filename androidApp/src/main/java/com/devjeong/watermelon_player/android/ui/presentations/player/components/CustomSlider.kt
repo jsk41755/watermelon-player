@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun TrackSlider(
+fun CustomSlider(
     value: Float,
     onValueChange: (newValue: Float) -> Unit,
     onValueChangeFinished: () -> Unit,
@@ -18,15 +18,13 @@ fun TrackSlider(
             onValueChange(it)
         },
         onValueChangeFinished = {
-
             onValueChangeFinished()
-
         },
         valueRange = 0f..songDuration,
         colors = SliderDefaults.colors(
-            thumbColor = Color.Black,
-            activeTrackColor = Color.DarkGray,
-            inactiveTrackColor = Color.Gray,
+            thumbColor = Color(0xFFCAFB5C),
+            activeTrackColor = Color(0xFFCAFB5C),
+            inactiveTrackColor = Color(0xFF252932),
         )
     )
 }
