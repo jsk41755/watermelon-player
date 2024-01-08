@@ -16,8 +16,8 @@ actual class CommonMusicPlayer actual constructor() {
     actual fun play(songIndex: Int) {
     }
 
-    actual fun seekTo(time: Double) {
-    }
+    actual fun seekTo(time: Long) {
+}
 
     actual fun addSongsUrls(songsUrl: List<String>) {
     }
@@ -25,4 +25,7 @@ actual class CommonMusicPlayer actual constructor() {
     actual fun cleanUp() {
     }
 
+    actual fun isPlaying(): Boolean {
+        return false // TEST;
+    }
 }

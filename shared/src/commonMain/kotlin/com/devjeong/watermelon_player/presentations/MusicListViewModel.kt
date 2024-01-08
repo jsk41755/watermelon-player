@@ -68,6 +68,15 @@ class MusicListViewModel(
         }
     }
 
+    fun findPreviousSongId(currentSongId: Int): Int {
+        val currentSongIndex = musicList.value.indexOfFirst { it.id == currentSongId }
+        return if (currentSongIndex == 0 || currentSongIndex == musicList.value.size - 1) {
+            musicList.value[0].id
+        } else {
+            musicList.value[currentSongIndex - 1].id
+        }
+    }
+
     fun findNextSongId(currentSongId: Int): Int {
         val currentSongIndex = musicList.value.indexOfFirst { it.id == currentSongId }
         return if (currentSongIndex == -1 || currentSongIndex == musicList.value.size - 1) {
@@ -77,12 +86,8 @@ class MusicListViewModel(
         }
     }
 
-    fun findPreviousSongId(currentSongId: Int): Int {
-        val currentSongIndex = musicList.value.indexOfFirst { it.id == currentSongId }
-        return if (currentSongIndex == 0 || currentSongIndex == musicList.value.size - 1) {
-            musicList.value[0].id
-        } else {
-            musicList.value[currentSongIndex - 1].id
-        }
+    fun findRandomNextSongId(currentSongId: Int): Int {
+        val availableSongs = musicList.value.filter { it.id != currentSongId }
+        return availableSongs.random().id
     }
 }

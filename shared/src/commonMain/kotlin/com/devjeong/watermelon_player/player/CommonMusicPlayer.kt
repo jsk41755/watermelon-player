@@ -6,7 +6,8 @@ expect class CommonMusicPlayer(){
     fun next()
     fun prev()
     fun play(songIndex: Int)
-    fun seekTo(time: Double)
+    fun seekTo(time: Long)
     fun addSongsUrls(songsUrl: List<String>)
     fun cleanUp()
+    fun isPlaying(): Boolean
 }

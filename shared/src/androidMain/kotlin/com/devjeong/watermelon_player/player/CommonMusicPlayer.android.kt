@@ -6,24 +6,22 @@ import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 
 actual class CommonMusicPlayer actual constructor() : Player.Listener {
-    lateinit var player: ExoPlayer
+    private lateinit var player: ExoPlayer
 
     fun initialize(context: Context, trackList: MutableList<MediaItem>) {
         player = ExoPlayer.Builder(context).build()
-
         player.addListener(this)
         player.setMediaItems(trackList)
         player.prepare()
     }
 
     actual fun play() {
-        // TODO; 재생 정지다
         if (player.playbackState == Player.STATE_IDLE) player.prepare()
         player.playWhenReady = !player.playWhenReady
     }
 
     actual fun pause() {
-        if (this::player.isInitialized){
+        if (this::player.isInitialized) {
             player.playWhenReady = false
         }
     }
@@ -41,12 +39,24 @@ actual class CommonMusicPlayer actual constructor() : Player.Listener {
         }
     }
 
-    actual fun seekTo(time: Double) {
+    actual fun seekTo(time: Long) {
+        player.seekTo(time)
+    }
+
+    fun seekTo(mediaItemIndex: Int, positionMs: Long) {
+        player.seekTo(mediaItemIndex, positionMs)
     }
 
     actual fun addSongsUrls(songsUrl: List<String>) {
     }
 
     actual fun cleanUp() {
+        player.release()
     }
+
+    actual fun isPlaying(): Boolean = player.isPlaying
+
+    fun currentPosition() = player.currentPosition
+
+    fun duration() = player.duration
 }
