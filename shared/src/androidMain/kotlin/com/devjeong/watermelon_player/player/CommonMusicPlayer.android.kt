@@ -11,22 +11,21 @@ actual class CommonMusicPlayer actual constructor() : Player.Listener {
 
     fun initialize(context: Context, trackList: MutableList<MediaItem>) {
         player = ExoPlayer.Builder(context).build()
-
         player.addListener(this)
         player.setMediaItems(trackList)
         player.prepare()
     }
 
     actual fun play() {
+//        player.play()
         if (player.playbackState == Player.STATE_IDLE) player.prepare()
         player.playWhenReady = !player.playWhenReady
     }
 
     actual fun pause() {
-        if (this::player.isInitialized){
+        if (this::player.isInitialized) {
             player.playWhenReady = false
         }
-
     }
 
     actual fun next() {
@@ -42,7 +41,7 @@ actual class CommonMusicPlayer actual constructor() : Player.Listener {
         }
     }
 
-    actual fun seekTo(time: Double) {
+    actual fun seekTo(time: Long) {
     }
 
     actual fun addSongsUrls(songsUrl: List<String>) {
@@ -51,4 +50,10 @@ actual class CommonMusicPlayer actual constructor() : Player.Listener {
     actual fun cleanUp() {
         player.release()
     }
+
+    actual fun isPlaying(): Boolean = player.isPlaying
+
+    fun currentPosition() = player.currentPosition
+
+    fun duration() = player.duration
 }

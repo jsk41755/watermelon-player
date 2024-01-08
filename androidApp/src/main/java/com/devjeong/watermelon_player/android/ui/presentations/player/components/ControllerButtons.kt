@@ -1,6 +1,5 @@
 package com.devjeong.watermelon_player.android.ui.presentations.player.components
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -30,9 +29,10 @@ import com.devjeong.watermelon_player.android.ui.presentations.playlist.PlayList
 fun MusicControlButtons(
     playListViewModel: PlayListViewModel,
     playViewModel: PlayViewModel,
-    currentSongId: MutableState<Int>
+    currentSongId: MutableState<Int>,
+    isPlaying: MutableState<Boolean>
 ) {
-    val isPlaying = remember { mutableStateOf(false) }
+//    val isPlaying = remember { mutableStateOf(false) }
     val isShuffled = remember { mutableStateOf(false) }
     val isRepeat = remember { mutableStateOf(false) }
 
@@ -95,8 +95,7 @@ fun MusicControlButtons(
                 playViewModel.onPlayPauseClick()
             }) {
                 Icon(
-                    painter =
-                    if (!isPlaying.value)
+                    painter = if (!isPlaying.value)
                         painterResource(id = R.drawable.pause)
                     else
                         painterResource(id = R.drawable.play),

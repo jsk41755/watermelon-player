@@ -25,7 +25,6 @@ import com.devjeong.watermelon_player.android.ui.presentations.like.LikeScreen
 import com.devjeong.watermelon_player.android.ui.presentations.navigation.BottomNavigationBar
 import com.devjeong.watermelon_player.android.ui.presentations.player.PlayViewModel
 import com.devjeong.watermelon_player.android.ui.presentations.player.PlayerScreen
-import com.devjeong.watermelon_player.android.ui.presentations.player.toMediaItemList
 import com.devjeong.watermelon_player.android.ui.presentations.playlist.PlayListScreen
 import com.devjeong.watermelon_player.android.ui.presentations.playlist.PlayListViewModel
 import com.devjeong.watermelon_player.android.ui.presentations.search.SearchScreen

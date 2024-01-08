@@ -67,6 +67,7 @@
 		0E96D9912B44070200862306 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				0EBE7FD02B49BDFC00CFCD63 /* viewModels */,
 				0E96D9932B4407D500862306 /* detail */,
 				0E96D9922B4407BE00862306 /* list */,
 			);
@@ -110,6 +111,13 @@
 				0E96D99E2B44099100862306 /* DurationView.swift */,
 			);
 			path = components;
+			sourceTree = "<group>";
+		};
+		0EBE7FD02B49BDFC00CFCD63 /* viewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = viewModels;
 			sourceTree = "<group>";
 		};
 		15F74A7FF8BE95487FE30F4A /* Pods */ = {
